@@ -9,7 +9,9 @@
 :imagesdir:   doc
 
 == Introduction
+This package is a tool to help generate graph using Python+Yed. This package will not create finalized graph on its own. You'll have to use Yed or another GUI that support .graphml to render the graph correct. By default, node size is not adapted to its content, and all nodes are on top of eachother.
 
+These pages are thought to provide quick documentation on what you can do with this package, especially the different types of nodes and the parameter and values available.
 
 === How to install
 Without downloading the project, one can do:
@@ -34,6 +36,57 @@ pip install -e .
 ----
 import pyed
 ----
+
+== How to make a graph
+[source]
+----
+import pyed
+
+g = pyed.Graph()
+
+n1 = g.add_node(pyed.ShapeNode, 'foo')
+n2 = g.add_node(pyed.ShapeNode, 'foo2')
+
+e1 = g.add_edge(n1, n2)
+
+l = g.add_node(pyed.GenericNode, "Entity", description="line1\nline2\nline3")
+
+table = [
+    ("Rows", "Name", "Unit"),
+    ("Row 0", "toto", "str"),
+    ("Row 1", 123, "int"),
+]
+
+t = g.add_node(pyed.TableNode, "Entity", table=table)
+
+
+grp1 = g.add_group("MY_Group")
+n4 = grp1.add_node(pyed.ShapeNode, 'foo4')
+n5 = grp1.add_node(pyed.ShapeNode, 'abc2')
+
+g.add_edge(n4, n5)
+g.add_edge(n2, grp1)
+
+g.write_graph("test.graphml")
+----
+
+== Xml Elements
+[[Label]]
+=== Label
+This is not a proper element per say, but will be used in all other classes.
+
+
+
+[[EdgeLabel]]
+==== Specific case of Label for Edge
+
+
+=== ShapeNode
+=== UmlNode
+=== TableNode
+=== GenericNode
+=== Edge
+=== Group
 
 == Tools
 
