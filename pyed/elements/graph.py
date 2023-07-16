@@ -2,32 +2,27 @@ import logging
 
 import xml.etree.ElementTree as ET
 
+from ..core.xml_item import XmlItem
 from .edge import Edge
 from .group import Group
 
 LOG = logging.getLogger(__name__)
 
 
-class Graph:
-    def __init__(self, directed="directed", graph_id="G"):
+class Graph(XmlItem):
+    def __init__(self):
         """
-
-        :param str directed: No idea what this does in practice, I leave the default because I don't need it.
-        :param str graph_id: Graph object index. Must be unique. This is not an issue for one object but will be
-                             when multiple graphes are created.
+        Top Graph object of which every other nodes must depend
         """
+        super().__init__(parent=None)
 
         self.nodes = {}
         self.edges = {}
         self.groups = {}
 
-        self.directed = directed
-        self.id = graph_id
+        # Yed only support directed graph, so masking this value
+        self.directed = "directed"
         self.existing_entities = {self.id: self}
-
-        # a graph object is its own graph reference.
-        self.parent_graph = self
-        self.parent = None
 
         self.graphml = None
 
@@ -144,6 +139,7 @@ class Graph:
 
         edge = Edge(node1, node2, parent=self, **kwargs)
         self.edges[edge.id] = edge
+        self.existing_entities[edge.id] = edge
         return edge
 
     def add_group(self, name, **kwargs):
