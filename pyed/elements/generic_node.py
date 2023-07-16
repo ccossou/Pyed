@@ -30,8 +30,7 @@ class GenericNode(Node):
         super().__init__(name, title_style=t_style, background=background, **kwargs)
 
         # Use default dict as base, and overwrite by custom parameter if conflict
-        d_style = self.default_title_style.copy()  # Default title
-        d_style.update(self.default_desc_style)  # Default description
+        d_style = self.default_desc_style.copy()  # Default title
         d_style.update(desc_style)  # custom for description
 
         self.description_label = Label(description, tag="y:NodeLabel", **d_style)
