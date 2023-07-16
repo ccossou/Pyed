@@ -71,8 +71,7 @@ class Label:
         self.updateParam("modelPosition", modelPosition, constants.valid_model_params[modelName])
 
         if tag == "y:EdgeLabel" and autoSizePolicy is not None:
-            LOG.error(f"Can't use parameter 'autoSizePolicy' with {self.tag}")
-            sys.exit()
+            raise ValueError(f"Can't use parameter 'autoSizePolicy' with {self.tag}")
         self.updateParam("autoSizePolicy", autoSizePolicy, constants.autoSizePolicy_values)
 
         for key, value in kwargs.items():
