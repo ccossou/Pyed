@@ -35,10 +35,10 @@ n5 = grp1.add_node(pyed.ShapeNode, 'abc2', title_style=dict(fontSize="72"), heig
 g.add_edge(n4, n5)
 g.add_edge(n2, grp1)
 
-print(g.existing_entities)
+for (idx, n) in g.nodes.items():
+    print(f"{idx}: {n.name}")
 
-for (idx, n) in g.existing_entities.items():
-    if idx != "G":
-        print(f"{idx}: {n.name}")
+for (idx, n) in g.groups.items():
+    print(f"{idx}: {n.name}")
 
 g.write_graph("test.graphml")
