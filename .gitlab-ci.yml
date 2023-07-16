@@ -1,0 +1,9 @@
+image: python:latest
+
+before_script:
+  - pip install -e .
+
+pytest:
+  stage: test
+  script:
+    - pytest
