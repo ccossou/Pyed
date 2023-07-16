@@ -1,6 +1,7 @@
 import pyed
 import pyed.elements as pel
 from pyed import utils
+import pytest
 
 
 def test_group():
@@ -100,6 +101,24 @@ def test_group_edges():
 
     assert grp1.edges[e1.id] == e1
     assert grp1.edges[e2.id] == e2
+
+
+
+def test_group_edges_warning():
+    """
+    Test group.add_edge warnings
+    """
+    g = pyed.Graph()
+
+    n1 = g.add_node(pel.ShapeNode, 'foo')
+
+    grp1 = g.add_group("MY_Group", shape="rectangle3d")
+
+    n2 = grp1.add_node(pyed.ShapeNode, 'foo2')
+    n3 = grp1.add_node(pyed.ShapeNode, 'foo3')
+
+    with pytest.raises(RuntimeWarning):
+        grp1.add_edge(n1, n2)
 
 
 def test_group_groups():
