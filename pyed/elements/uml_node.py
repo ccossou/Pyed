@@ -1,7 +1,6 @@
 import logging
 import xml.etree.ElementTree as ET
 
-from .label import Label
 from ..core.node import Node
 
 LOG = logging.getLogger(__name__)
