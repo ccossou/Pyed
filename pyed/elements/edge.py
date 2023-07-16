@@ -24,6 +24,23 @@ class Edge(XmlItem):
                  color="#000000", line_type="line", width="1.0", label_style={},
                  source_label=None, target_label=None,
                  description="", url="", **kwargs):
+        """
+
+        :param Node node1: First node object
+        :param Node node2: Second node object
+        :param str label: Central label text (By default, nothing)
+        :param str arrowhead: type of head (node2) arrow
+        :param str arrowfoot: type of foot (node1) arrow
+        :param str color: edge color
+        :param str  line_type: edge line type
+        :param str width: edge line width (e.g. '1.0')
+        :param dict label_style: Extra parameters passed to Label constructor (for middle, source and target labels)
+        :param source_label: Source (node1) label text (By default, nothing)
+        :param target_label: Target (node2) label text (By default, nothing)
+        :param str description: Node description (not displayed in Yed, so I don't know how usefull this is)
+        :param str url: Node url (not displayed in Yed, so I don't know how usefull this is)
+        :param dict kwargs: Extra arguments are passed to parent class (developer only)
+        """
         super().__init__(**kwargs)
         self.node1 = node1
         self.node2 = node2
@@ -67,6 +84,14 @@ class Edge(XmlItem):
         return self
 
     def to_xml(self):
+        """
+        Create the corresponding XML object.
+
+        The main creation is done in the parent class Node. Only extra steps are done here.
+
+        :return: child object created
+        :rtype: xml.etree.ElementTree.Element
+        """
         edge = ET.Element("edge", id=str(self.id), source=str(self.node1.id), target=str(self.node2.id))
         data = ET.SubElement(edge, "data", key="data_edge")
         pl = ET.SubElement(data, "y:PolyLineEdge")

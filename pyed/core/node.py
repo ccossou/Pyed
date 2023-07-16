@@ -21,25 +21,25 @@ class Node(XmlItem, metaclass=ABCMeta):
     default_title_style = dict(alignment="center", font_family="Dialog",
                                underlined_text="false", font_style="plain", font_size="12", )
 
-    def __init__(self, node_name, title_style={}, background="#ffffff", transparent="false", border_color="#000000",
+    def __init__(self, name, title_style={}, background="#ffffff", transparent="false", border_color="#000000",
                  border_type="line", border_width="1.0", height=False, width=False, x=False, y=False, description="",
                  url="", **kwargs):
         """
 
-        :param node_name:
+        :param str name: Node name (title)
         :param dict title_style: See Label parameters for more information about possible values
-        :param background:
-        :param transparent:
-        :param border_color:
-        :param border_type:
-        :param border_width:
-        :param height:
-        :param width:
-        :param x:
-        :param y:
-        :param description:
-        :param url:
-        :param kwargs:
+        :param str background: Background color as RGB (e.g. '#ffffff') or None if no color
+        :param bool transparent: Is the node transparent?
+        :param str border_color: Border color as RGB (e.g. '#ffffff') or None if no color
+        :param str border_type: Border type (e.g. line, the default)
+        :param str border_width: Border width in pixel (e.g. '1.0')
+        :param str height:
+        :param str width:
+        :param str x:
+        :param str y:
+        :param str description: Node description (not displayed in Yed, so I don't know how usefull this is)
+        :param str url: Node url (not displayed in Yed, so I don't know how usefull this is)
+        :param dict kwargs: Extra arguments are passed to parent class (developer only)
         """
         super().__init__(**kwargs)
 
@@ -49,9 +49,9 @@ class Node(XmlItem, metaclass=ABCMeta):
         self.title_style = self.default_title_style.copy()
         self.title_style.update(title_style)
 
-        self.add_label(node_name, **self.title_style)
+        self.add_label(name, **self.title_style)
 
-        self.name = node_name
+        self.name = name
 
         # shape fill
         self.background = background
@@ -85,6 +85,12 @@ class Node(XmlItem, metaclass=ABCMeta):
 
 
     def add_label(self, label_text, **kwargs):
+        """
+        Add label to Node
+
+        :param str label_text:
+        :param dict kwargs: Extra label parameters
+        """
         self.list_of_labels.append(Label(label_text, tag="y:NodeLabel", **kwargs))
         return self
 
@@ -92,6 +98,11 @@ class Node(XmlItem, metaclass=ABCMeta):
     def to_xml(self):
         """
         Init in the parent class all XML items that are common to all child classes
+
+        Create:
+        * self._ET_node
+        * self._ET_data
+        * self._ET_shape
         """
         self._ET_node = ET.Element("node", id=str(self.id))
         self._ET_data = ET.SubElement(self._ET_node, "data", key="data_node")
@@ -99,7 +110,6 @@ class Node(XmlItem, metaclass=ABCMeta):
 
         if self.geom:
             ET.SubElement(self._ET_shape, "y:Geometry", **self.geom)
-        # <y:Geometry height="30.0" width="30.0" x="475.0" y="727.0"/>
 
         ET.SubElement(self._ET_shape, "y:Fill", color=self.background,
                       transparent=self.transparent)

@@ -21,6 +21,29 @@ class Label:
                  fontSize="12", fontStyle="plain", underlinedText="false", textColor="#000000", iconTextGap="4",
                  horizontalTextPosition="center", verticalTextPosition="center", visible="true", borderColor=None,
                  backgroundColor=None, modelName="free", modelPosition="anywhere", autoSizePolicy=None, **kwargs):
+        """
+
+        :param str text:
+        :param str tag: Type of Label, either "y:NodeLabel" or "y:EdgeLabel"
+        :param height:
+        :param width:
+        :param str alignment:
+        :param str fontFamily:
+        :param str fontSize:
+        :param str fontStyle:
+        :param str underlinedText: 'true' or 'false'
+        :param str textColor:
+        :param str iconTextGap: integer
+        :param str horizontalTextPosition:
+        :param str verticalTextPosition:
+        :param str visible:
+        :param str borderColor:
+        :param str backgroundColor:
+        :param str modelName:
+        :param str modelPosition:
+        :param str autoSizePolicy:
+        :param kwargs: Extra parameter can be passed as long as they are valid xml parameters for the current tag label.
+        """
 
         self._text = text
 
@@ -56,6 +79,16 @@ class Label:
             self.updateParam(key, value)
 
     def updateParam(self, parameter_name, value, validValues=None):
+        """
+        Add parameter to Label instance. If value is None, add nothing, if invalid value is found, raise a ValueError
+
+        :param str parameter_name:
+        :param value:
+        :param list validValues:
+
+        :return: True or False, if value was updated or not.
+        :rtype: bool
+        """
         if value is None:
             return False
         utils.check_value(parameter_name, value, validValues)
@@ -64,6 +97,14 @@ class Label:
         return True
 
     def to_xml(self, parent):
+        """
+        Create the corresponding XML object
+
+        :param Element parent: Parent xml object
+
+        :return: child object created
+        :rtype: xml.etree.ElementTree.Element
+        """
 
         # set parameter just before making the xml node, to make sure the value is accurate
         if "backgroundColor" in self._params and self._params["backgroundColor"] is not None:

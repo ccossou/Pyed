@@ -10,25 +10,33 @@ LOG = logging.getLogger(__name__)
 class UmlNode(Node):
     node_type = "UMLClassNode"
 
-    def __init__(self, node_name, stereotype="", attributes="", methods="", **style_params):
+    def __init__(self, name, stereotype="", attributes="", methods="", **style_params):
         """
 
-        :param node_name:
-        :param UML:
-        :param dict style_params: common parameters passed to Node.
+        :param str name: Class name
+        :param str stereotype: class stereotype
+        :param str attributes: class attributes
+        :param str methods: Class methods
+        :param kwargs: Title label extra parameters
         """
-        super().__init__(node_name, **style_params)
+
+        super().__init__(name, **style_params)
         self.stereotype = stereotype
         self.attributes = attributes
         self.methods = methods
 
-    def add_label(self, label_text, **kwargs):
-        self.list_of_labels.append(Label(label_text, tag="y:NodeLabel", **kwargs))
-        return self
 
     def to_xml(self):
+        """
+        Create the corresponding XML object.
+
+        The main creation is done in the parent class Node. Only extra steps are done here.
+
+        :return: child object created
+        :rtype: xml.etree.ElementTree.Element
+        """
         # Generic Node conversion
-        Node.to_xml(self)
+        super().to_xml()
 
         UML = ET.SubElement(self._ET_shape, "y:UML", use3DEffect="false")
 

@@ -25,29 +25,22 @@ class Group(XmlItem):
                  border_color="#000000", border_type="line", border_width="1.0", height=False,
                  width=False, x=False, y=False, description="", url="", **kwargs):
         """
-
-        :param name:
-        :param label_alignment:
-        :param shape:
-        :param closed:
-        :param font_family:
-        :param underlined_text:
-        :param font_style:
-        :param font_size:
-        :param background:
-        :param label_background:
-        :param transparent:
-        :param border_color:
-        :param border_type:
-        :param border_width:
-        :param height:
-        :param width:
-        :param x:
-        :param y:
-        :param description:
-        :param url:
-        :param kwargs:
+        :param str name: Group name (title)
+        :param dict title_style: See Label parameters for more information about possible values
+        :param str background: Background color as RGB (e.g. '#ffffff') or None if no color
+        :param bool transparent: Is the node transparent?
+        :param str border_color: Border color as RGB (e.g. '#ffffff') or None if no color
+        :param str border_type: Border type (e.g. line, the default)
+        :param str border_width: Border width in pixel (e.g. '1.0')
+        :param str height:
+        :param str width:
+        :param str x:
+        :param str y:
+        :param str description: Node description (not displayed in Yed, so I don't know how usefull this is)
+        :param str url: Node url (not displayed in Yed, so I don't know how usefull this is)
+        :param dict kwargs: Extra arguments are passed to parent class (developer only)
         """
+
         super().__init__(**kwargs)
 
         self.name = name
@@ -89,6 +82,16 @@ class Group(XmlItem):
         self.url = url
 
     def add_node(self, NodeClass, node_name, **kwargs):
+        """
+        Add node of type NodeClass to self.
+
+        :param NodeType NodeClass: Node class must be child class of Node (e.g. ShapeNode, GenericNode, TableNode, UmlNode)
+        :param str node_name: node title
+        :param kwargs: Extra parameter to the Node class
+
+        :return: child node created
+        :rtype: instance of type NodeClass
+        """
         node = NodeClass(node_name, parent=self, **kwargs)
 
         self.nodes[node.id] = node
@@ -96,6 +99,15 @@ class Group(XmlItem):
         return node
 
     def add_group(self, name, **kwargs):
+        """
+        Add group to current object.
+
+        :param str name: child group name
+        :param kwargs: Extra parameters for the Group object
+
+        :return: child group created
+        :rtype: Group
+        """
         group = Group(name, parent=self, **kwargs)
 
         self.groups[group.id] = group
@@ -103,10 +115,28 @@ class Group(XmlItem):
         return group
 
     def is_ancestor(self, node):
+        """
+        Check if current object is an ancestor of input parameter (parent or more)
+
+        :param XmlItem node: Input node to test. Must be an inherited class of XmlItem (Label, Group, Node, Edge)
+
+        :return: True if self is an ancestor of node, else return False.
+        :rtype: bool
+        """
         return node.parent is not None and (
                 node.parent is self or self.is_ancestor(node.parent))
 
     def add_edge(self, node1, node2, **kwargs):
+        """
+        Add an edge between both input nodes
+
+        :param Node node1: First node object
+        :param Node node2: Second node object
+        :param kwargs: Extra parameters for the Edge object.
+
+        :return: edge object
+        :rtype: Edge
+        """
         # http://graphml.graphdrawing.org/primer/graphml-primer.html#Nested
         # The edges between two nodes in a nested graph have to be declared in a graph,
         # which is an ancestor of both nodes in the hierarchy.
