@@ -92,9 +92,8 @@ class TableNode(GenericNode):
         Check if self.table is valid
         """
         if not isinstance(self.table, list):
-            LOG.error(f"Input table need to be a list, got '{type(self.table)}' instead.")
-            sys.exit()
-        
+            raise TypeError(f"Input table need to be a list, got '{type(self.table)}' instead.")
+
         n_elem = None
         for line in self.table:
             line_len = len(line)
@@ -102,8 +101,7 @@ class TableNode(GenericNode):
                 n_elem = line_len
             else:
                 if n_elem != line_len:
-                    LOG.error(f"All lines in table need the same number of elements")
-                    sys.exit()
+                    raise ValueError(f"All lines in table need the same number of elements")
 
 
     def to_xml(self):
