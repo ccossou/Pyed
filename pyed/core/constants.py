@@ -7,8 +7,6 @@ arrow_types = ["none", "standard", "white_delta", "diamond", "white_diamond", "s
 font_styles = ["plain", "bold", "italic", "bolditalic"]
 horizontal_alignments = ['left', 'center', 'right']
 vertical_alignments = ['top', 'center', 'bottom']
-custom_property_scopes = ["node", "edge"]
-custom_property_types = ["string", "int", "double", "boolean"]
 autoSizePolicy_values = ["node_width", "node_size", "node_height", "content"]
 
 # For each placement model, all valid params
