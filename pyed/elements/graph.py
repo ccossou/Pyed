@@ -21,8 +21,8 @@ class Graph:
         self.groups = {}
 
         self.directed = directed
-        self.graph_id = graph_id
-        self.existing_entities = {self.graph_id: self}
+        self.id = graph_id
+        self.existing_entities = {self.id: self}
 
         # a graph object is its own graph reference.
         self.parent_graph = self
@@ -76,7 +76,7 @@ class Graph:
         edge_key.set("yfiles.type", "edgegraphics")
 
         graph = ET.SubElement(graphml, "graph", edgedefault=self.directed,
-                              id=self.graph_id)
+                              id=self.id)
 
         for node in self.nodes.values():
             graph.append(node.to_xml())

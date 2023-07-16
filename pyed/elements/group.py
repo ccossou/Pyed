@@ -63,10 +63,6 @@ class Group(XmlItem):
         self.transparent = transparent
         self.closed = closed
 
-        # # label formatting options
-        # utils.check_value("font_style", font_style, constants.font_styles)
-        # utils.check_value("alignment", label_alignment, constants.horizontal_alignments)
-
         self.title_style = self.default_title_style.copy()
         self.title_style.update(title_style)
 

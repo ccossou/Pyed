@@ -9,8 +9,6 @@ LOG = logging.getLogger(__name__)
 
 
 class Label:
-    graphML_tagName = None
-
     allowed_tags = ["y:NodeLabel", "y:EdgeLabel"]
 
     # For each Label tag, placement model allowed
