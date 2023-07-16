@@ -33,6 +33,20 @@ def assert_dict_equal(input_dict, dict_ref):
     assert is_equal, msg
 
 
+def assert_dict_subset(input_dict, dict_ref):
+    """
+    Assert if dict_ref is subset of input_ref. If not, display the differences
+
+    :param dict input_dict: Input dictionary
+    :param dict dict_ref: Reference dictionary assumed to be a subset of input dict
+
+    """
+
+    (is_equal, msg) = is_subset(input_dict, dict_ref)
+
+    assert is_equal, msg
+
+
 def compare_dict(input_dict, dict_ref, msg=None, prefix=None):
     """
     Compare 2 dicts. Will return an error message explaining the differences
@@ -97,6 +111,49 @@ def compare_dict(input_dict, dict_ref, msg=None, prefix=None):
 
     return is_equal, msg
 
+def is_subset(input_dict, dict_ref, msg=None, prefix=None):
+    is_subset = True
+
+    if not msg:
+        msg = ""
+
+    keys1 = set(input_dict.keys())
+    keys2 = set(dict_ref.keys())
+
+    d1_prefix = "input_dict"
+    d2_prefix = "dict_ref"
+    if prefix:
+        d1_prefix += prefix
+        d2_prefix += prefix
+
+    common_keys = keys1.intersection(keys2)
+
+    # Keys present in keys2 not present in keys1
+    new_keys2 = keys2.difference(keys1)
+    if len(new_keys2) != 0:
+        is_subset = False
+        msg += "Keys exclusive to {}:\n".format(d2_prefix)
+        for key in new_keys2:
+            msg += "\t{}[{}] = {}\n".format(d2_prefix, key, dict_ref[key])
+
+    # Common keys
+    for key in common_keys:
+        value1 = input_dict[key]
+        value2 = dict_ref[key]
+        if isinstance(value1, dict):
+            new_prefix = prefix if prefix else ""
+            new_prefix += "[{}]".format(key)
+            (value_equal, tmp_msg) = compare_dict(value1, value2, prefix=new_prefix)
+            if not value_equal:
+                is_subset = False
+            msg += tmp_msg
+        elif value1 != value2:
+            is_subset = False
+            msg += "Difference for:\n"
+            msg += "\t{}[{}] = {}\n".format(d1_prefix, key, value1)
+            msg += "\t{}[{}] = {}\n".format(d2_prefix, key, value2)
+
+    return is_subset, msg
 
 def update_dict(d, u):
     """
