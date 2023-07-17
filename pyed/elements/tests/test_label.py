@@ -11,12 +11,12 @@ def test_label():
     assert label._text == "foo"
     assert label.tag == "y:NodeLabel"
     assert "backgroundColor" not in label._params
-    assert "borderColor" not in label._params
+    assert "lineColor" not in label._params
     assert "autoSizePolicy" not in label._params
 
-    label = pel.Label("foo", "y:NodeLabel", backgroundColor="#ffffff", borderColor="#000000", autoSizePolicy="content")
+    label = pel.Label("foo", "y:NodeLabel", backgroundColor="#ffffff", lineColor="#000000", autoSizePolicy="content")
     assert label._params["backgroundColor"] == "#ffffff"
-    assert label._params["borderColor"] == "#000000"
+    assert label._params["lineColor"] == "#000000"
     assert label._params["autoSizePolicy"] == "content"
 
 
@@ -42,12 +42,6 @@ test_data = [
     ("alignment", 'left'),
     ("alignment", 'center'),
     ("alignment", 'right'),
-    ("horizontalTextPosition", 'left'),
-    ("horizontalTextPosition", 'center'),
-    ("horizontalTextPosition", 'right'),
-    ("verticalTextPosition", 'top'),
-    ("verticalTextPosition", 'center'),
-    ("verticalTextPosition", 'bottom'),
     ("autoSizePolicy", "node_width"),
     ("autoSizePolicy", "node_size"),
     ("autoSizePolicy", "node_height"),
@@ -69,8 +63,6 @@ def test_label_valid_parameters(key, value):
 test_data = [
     ("fontStyle", "toto"),
     ("alignment", 'toto'),
-    ("horizontalTextPosition", 'toto'),
-    ("verticalTextPosition", 'toto'),
     ("autoSizePolicy", "toto"),
     ("visible", "toto"),
     ("underlinedText", "toto"),

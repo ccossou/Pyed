@@ -1,6 +1,5 @@
 import logging
 import xml.etree.ElementTree as ET
-import sys
 
 from ..core import constants
 from ..core import utils
@@ -17,10 +16,10 @@ class Label:
         "y:EdgeLabel": ["two_pos", "centered", "six_pos", "three_center", "center_slider", "side_slider", "free"],
     }
 
-    def __init__(self, text, tag, height="18.1328125", width=None, alignment="center", fontFamily="Dialog",
+    def __init__(self, text, tag, height="30", width=None, alignment="center", fontFamily="Dialog",
                  fontSize="12", fontStyle="plain", underlinedText="false", textColor="#000000", iconTextGap="4",
-                 horizontalTextPosition="center", verticalTextPosition="center", visible="true", borderColor=None,
-                 backgroundColor=None, modelName="free", modelPosition="anywhere", autoSizePolicy=None, **kwargs):
+                 visible="true", lineColor=None, backgroundColor=None, modelName="free", modelPosition="anywhere",
+                 autoSizePolicy=None, **kwargs):
         """
 
         :param str text:
@@ -34,10 +33,8 @@ class Label:
         :param str underlinedText: 'true' or 'false'
         :param str textColor:
         :param str iconTextGap: integer
-        :param str horizontalTextPosition:
-        :param str verticalTextPosition:
         :param str visible:
-        :param str borderColor:
+        :param str lineColor:
         :param str backgroundColor:
         :param str modelName:
         :param str modelPosition:
@@ -52,11 +49,8 @@ class Label:
 
         # Initialize dictionary for parameters
         self._params = {}
-        self.updateParam("horizontalTextPosition", horizontalTextPosition, constants.horizontal_alignments)
-        self.updateParam("verticalTextPosition", verticalTextPosition, constants.vertical_alignments)
         self.updateParam("alignment", alignment, constants.horizontal_alignments)
         self.updateParam("fontStyle", fontStyle, constants.font_styles)
-
         self.updateParam("fontFamily", fontFamily)
         self.updateParam("iconTextGap", iconTextGap)
         self.updateParam("fontSize", fontSize)
@@ -65,7 +59,7 @@ class Label:
         self.updateParam("underlinedText", underlinedText.lower(), ["true", "false"])
         self.updateParam("width", width)
         self.updateParam("height", height)
-        self.updateParam("borderColor", borderColor)
+        self.updateParam("lineColor", lineColor)
         self.updateParam("backgroundColor", backgroundColor)
         self.updateParam("modelName", modelName, self.allowed_models[tag])
         self.updateParam("modelPosition", modelPosition, constants.valid_model_params[modelName])
