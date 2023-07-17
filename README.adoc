@@ -6,6 +6,7 @@
 :lang: en
 :numbered:
 :experimental:
+:xrefstyle: short
 :source-language: python
 :imagesdir:   doc/figures
 
@@ -118,24 +119,27 @@ g.add_node(pyed.ShapeNode, "foo", title_style=dict(fontFamily="Dialog",
 rotationAngle="60", underlinedText="true", lineColor=None))
 ----
 
+[[label_parameters]]
 .Label parameters
 [frame="all",options="header"]
 |===
 | Name | Example | Possible values
 | alignment | 'center' | ['left', 'center', 'right']
-| fontStyle | 'plain' | ["plain", "bold", "italic", "bolditalic"]
-| underlinedText | 'true' | ["true", "false"]
+| fontStyle | 'plain' | ['plain', 'bold', 'italic', 'bolditalic']
+| underlinedText | 'true' | ['true', 'false']
 | lineColor | '#FFde78' | None or a color
 | backgroundColor | '#FFde78' | None or a color
 | textColor | '#FFde78' | None or a color
 | fontFamily | 'Courier' | Font name (don't have a full list)
 | rotationAngle | '30' | rotation in degrees from 0 to 360
 | fontSize | '20' | positive integer
-| autoSizePolicy | 'content' | ["node_width", "node_size", "node_height", "content"] (will not work for labels in an edge)
+| autoSizePolicy | 'content' | ['node_width', 'node_size', 'node_height', 'content'] (will not work for labels in an edge)
 |===
 
 ==== Label placement in Node
 These parameters have an effect on how the Label will be placed with respect to the Node. To that extent, the Label parameter autoSizePolicy do matter (at least for all object except Edge, see <<EdgeLabel>>)
+
+Models allowed in ShapeNode, Group, UmlNode, GenericNode and TableNode (every element but Edge): ["internal", "corners", "sandwich", "sides", "eight_pos", "free", "custom"]
 
 .Label placement. Parent node is value for "*modelName*", child node is value for "*modelPosition*". Script used to make the plot is pyed/scripts/plot_label_placement.py.
 image::label_placement.svg[]
@@ -145,16 +149,221 @@ image::label_placement.svg[]
 g.add_node(pyed.ShapeNode, "foo", title_style={"modelName": "internal", "modelPosition": "t"})
 ----
 
+
+
+Models allowed for Edge: ["two_pos", "centered", "six_pos", "three_center", "center_slider", "side_slider", "free"]
+
+.Placement (*modelPosition*) parameters depending on the model (*modelName*) selected:
+[frame="all",options="header"]
+|===
+| `modelName` | `modelPosition` Possible values
+| internal | ['t', 'b', 'c', 'l', 'r', 'tl', 'tr', 'bl', 'br']
+| corners | ['nw', 'ne', 'sw', 'se']
+| sandwich | ['n', 's']
+| sides | ['n', 'e', 's', 'w']
+| eight_pos | ['n', 'e', 's', 'w', 'nw', 'ne', 'sw', 'se']
+| custom | None
+| two_pos | ['head', 'tail']
+| centered | ['center']
+| six_pos | ['shead', 'thead', 'head', 'stail', 'ttail', 'tail']
+| three_center | ['center', 'scentr', 'tcentr']
+| center_slider | None
+| side_slider | None
+| free | 'anywhere'
+|===
+
 [[EdgeLabel]]
 ==== Specific case of Label for Edge
 Parameter *autoSizePolicy* is not allowed when using `tag="y:EdgeLabel"`
 
+[[Node]]
+=== Node parameter global for all xxxNode
+
+[[node_parameters]]
+.Generic parameters applicable for all xxxNode:
+[frame="all",options="header"]
+|===
+| Parameter Name | Description
+| name | Node name (title)
+| title_style | dict of all values passed to the title label (see <<label_parameters>>)
+| background | Background color as RGB (e.g. '#ffffff') or None if no color
+| transparent | Is the node transparent? 'true' or 'false'
+| border_color | Border color as RGB (e.g. '#ffffff') or None if no color
+| border_type | Border type (e.g. line, the default) (see <<arrowhead>>)
+| border_width | Border width in pixel (e.g. '1.0')
+| height | advanced parameters not used by default (expect a float as string)
+| width | advanced parameters not used by default (expect a float as string)
+| x | advanced parameters not used by default (expect a float as string)
+| y | advanced parameters not used by default (expect a float as string)
+| description | Node description (not displayed in Yed, so I don't know how usefull this is)
+| url | Node url (not displayed in Yed, so I don't know how usefull this is)
+|===
+
 === ShapeNode
+[source]
+----
+import pyed
+
+g = pyed.Graph()
+
+g.add_node(pyed.ShapeNode, "foo")
+----
+
+.ShapeNode parameters (see <<node_parameters>> for common parameters also applicable):
+[frame="all",options="header"]
+|===
+| Parameter Name | Possible values | Description
+| shape | ['rectangle', 'rectangle3d', 'roundrectangle', 'diamond', 'ellipse',
+                   'fatarrow', 'fatarrow2', 'hexagon', 'octagon', 'parallelogram',
+                   'parallelogram2', 'star5', 'star6', 'star6', 'star8', 'trapezoid',
+                   'trapezoid2', 'triangle', 'trapezoid2', 'triangle'] | Shape of the Node (by default, rectangle) (see <<shape>>)
+|===
+
+[[shape]]
+.shape for ShapeNode or Group. Script used to make the plot is pyed/scripts/plot_node_shape.py.
+image::node_shape.svg[]
+
 === UmlNode
+[source]
+----
+import pyed
+
+g = pyed.Graph()
+
+n3 = g.add_node(pyed.UmlNode, "UmlNode", stereotype="abstract", attributes="foo\nbar", methods="foo()\nbar()")
+----
+
+.UmlNode parameters (see <<node_parameters>> for common parameters also applicable):
+[frame="all",options="header"]
+|===
+| Parameter Name | Possible values | Description
+| stereotype | text (or empty string) | Class stereotype (e.g. AbstractClass)
+| attributes | text (or empty string) | Class attributes
+| methods | text (or empty string) | Class methods
+|===
+
 === TableNode
+[source]
+----
+import pyed
+
+g = pyed.Graph()
+
+table = [
+    ("Rows", "Name", "Unit"),
+    ("Row 0", "toto", "str"),
+    ("Row 1", 123, "int"),
+]
+
+t = g.add_node(pyed.TableNode, "Entity", table=table)
+----
+
+
+.TableNode parameters (see <<node_parameters>> for common parameters also applicable):
+[frame="all",options="header"]
+|===
+| Parameter Name | Possible values | Description
+| table | list(tuple(str)) | Each tuple is a line, each item in tuple is a cell. First line is the header
+| table_style | dict | dict of all values passed to the table label (see <<label_parameters>>)
+|===
+
 === GenericNode
+[source]
+----
+import pyed
+
+g = pyed.Graph()
+
+l = g.add_node(pyed.GenericNode, "Entity", description="line1\nline2\nline3")
+----
+
+.GenericNode parameters (see <<node_parameters>> for common parameters also applicable):
+[frame="all",options="header"]
+|===
+| Parameter Name | Possible values | Description
+| description | str | Description text
+| desc_style | dict | dict of all values passed to the description label (see <<label_parameters>>)
+|===
+
 === Edge
+[source]
+----
+import pyed
+
+g = pyed.Graph()
+
+n1 = g.add_node(pyed.ShapeNode, 'foo')
+n2 = g.add_node(pyed.ShapeNode, 'foo2')
+
+e1 = g.add_edge(n1, n2)
+----
+
+.Parameters for an Edge:
+[frame="all",options="header"]
+|===
+| Parameter Name | Description
+| node1 | Source node object
+| node2 | Target node object
+| arrowhead | Type of arrow for the target node (see <<arrowhead>>)
+| arrowfoot | Type of arrow for the source node (see <<arrowhead>>)
+| label | Edge middle label text (no text by default)
+| source_label | Edge source label text (no text by default)
+| target_label | Edge target label text (no text by default)
+| label_style | dict of all values passed to the middle, source or target label (see <<label_parameters>>)
+| background | Background color as RGB (e.g. '#ffffff') or None if no color
+| color | Line color as RGB (e.g. '#ffffff') or None if no color
+| line_type | Edge type (e.g. line, the default) (see <<linetype>>)
+| width | Edge width in pixel (e.g. '1.0')
+
+| description | Node description (not displayed in Yed, so I don't know how usefull this is)
+| url | Node url (not displayed in Yed, so I don't know how usefull this is)
+|===
+
+[[linetype]]
+.Line type for edges. Script used to make the plot is pyed/scripts/plot_edge_linetype.py.
+image::edge_linetype.svg[]
+
+[[arrowhead]]
+.Line type for edges. Script used to make the plot is pyed/scripts/plot_edge_arrowhead.py.
+image::edge_arrowhead.svg[]
+
 === Group
+[source]
+----
+import pyed
+
+g = pyed.Graph()
+
+grp1 = g.add_group("MY_Group")
+n4 = grp1.add_node(pyed.ShapeNode, 'foo4')
+n5 = grp1.add_node(pyed.ShapeNode, 'abc2')
+
+e1 = grp1.add_edge(n4, n5)
+
+grp2 = grp1.add_group("2nd group")
+----
+
+.ShapeNode parameters (see <<node_parameters>> for common parameters also applicable):
+[frame="all",options="header"]
+|===
+| Parameter Name | Possible values | Description
+| name | Node name (title)
+| shape | Shape of the Group (by default, rectangle) (see <<shape>>)
+| title_style | dict of all values passed to the title label (see <<label_parameters>>)
+| closed | 'true' or 'false' (no idea what this does)
+| background | Background color as RGB (e.g. '#ffffff') or None if no color
+| transparent | Is the node transparent? 'true' or 'false'
+| border_color | Border color as RGB (e.g. '#ffffff') or None if no color
+| border_type | Border type (e.g. line, the default) (see <<arrowhead>>)
+| border_width | Border width in pixel (e.g. '1.0')
+| height | advanced parameters not used by default (expect a float as string)
+| width | advanced parameters not used by default (expect a float as string)
+| x | advanced parameters not used by default (expect a float as string)
+| y | advanced parameters not used by default (expect a float as string)
+| description | Node description (not displayed in Yed, so I don't know how usefull this is)
+| url | Node url (not displayed in Yed, so I don't know how usefull this is)
+|===
+
 
 == FAQ
 === alignment attribute doesn't work

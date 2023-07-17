@@ -25,7 +25,7 @@ class ShapeNode(Node):
         super().__init__(name, **style_params)
 
         # node shape
-        utils.check_value("shape", shape, Node.validShapes)
+        utils.check_value("shape", shape, self.validShapes)
         self.shape = shape
 
     def to_xml(self):

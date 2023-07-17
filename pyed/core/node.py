@@ -13,11 +13,6 @@ LOG = logging.getLogger(__name__)
 class Node(XmlItem, metaclass=ABCMeta):
     node_type = None
 
-    validShapes = ["rectangle", "rectangle3d", "roundrectangle", "diamond", "ellipse",
-                   "fatarrow", "fatarrow2", "hexagon", "octagon", "parallelogram",
-                   "parallelogram2", "star5", "star6", "star6", "star8", "trapezoid",
-                   "trapezoid2", "triangle", "trapezoid2", "triangle"]
-
     default_title_style = dict(alignment="center", font_family="Dialog",
                                underlined_text="false", font_style="plain", font_size="12", )
 

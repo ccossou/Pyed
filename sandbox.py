@@ -7,7 +7,7 @@ n2 = g.add_node(pyed.ShapeNode, 'foo2', shape="roundrectangle", title_style=dict
            underlined_text="true"))
 
 e1 = g.add_edge(n1, n2)
-n3 = g.add_node(pyed.ShapeNode, 'abc', title_style=dict(fontSize="72"), height="100")
+n3 = g.add_node(pyed.UmlNode, "UmlNode", stereotype="abstract", attributes="foo\nbar", methods="foo()\nbar()")
 
 b = g.add_node(pyed.ShapeNode, 'bar')
 
