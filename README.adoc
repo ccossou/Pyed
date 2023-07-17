@@ -264,7 +264,7 @@ table = [
     ("Row 1", 123, "int"),
 ]
 
-t = g.add_node(pyed.TableNode, "Entity", table=table)
+t = g.add_node(pyed.TableNode, "TableNode", table=table)
 ----
 
 
@@ -286,7 +286,7 @@ import pyed
 
 g = pyed.Graph()
 
-l = g.add_node(pyed.GenericNode, "Entity", description="line1\nline2\nline3")
+l = g.add_node(pyed.GenericNode, "GenericNode", description="line1\nline2\nline3")
 ----
 
 .GenericNode parameters (see <<node_parameters>> for common parameters also applicable):
@@ -307,10 +307,10 @@ import pyed
 
 g = pyed.Graph()
 
-n1 = g.add_node(pyed.ShapeNode, 'foo')
-n2 = g.add_node(pyed.ShapeNode, 'foo2')
+n1 = g.add_node(pyed.ShapeNode, 'node1 (source)')
+n2 = g.add_node(pyed.ShapeNode, 'node2 (target)')
 
-e1 = g.add_edge(n1, n2)
+e1 = g.add_edge(n1, n2, label="Edge", label_style={"backgroundColor": "#ffffff"})
 ----
 
 .Parameters for an Edge:
@@ -352,9 +352,9 @@ import pyed
 
 g = pyed.Graph()
 
-grp1 = g.add_group("MY_Group")
-n4 = grp1.add_node(pyed.ShapeNode, 'foo4')
-n5 = grp1.add_node(pyed.ShapeNode, 'abc2')
+grp1 = g.add_group("Group")
+n4 = grp1.add_node(pyed.ShapeNode, 'foo')
+n5 = grp1.add_node(pyed.ShapeNode, 'bar')
 
 e1 = grp1.add_edge(n4, n5)
 
