@@ -200,6 +200,9 @@ Parameter *autoSizePolicy* is not allowed when using `tag="y:EdgeLabel"`
 |===
 
 === ShapeNode
+.Example of ShapeNode. Script used to make the plot is pyed/scripts/plot_indiv_element.py.
+image::shape_node.svg[align="center"]
+
 [source]
 ----
 import pyed
@@ -224,6 +227,9 @@ g.add_node(pyed.ShapeNode, "foo")
 image::node_shape.svg[]
 
 === UmlNode
+.Example of UmlNode. Script used to make the plot is pyed/scripts/plot_indiv_element.py.
+image::uml_node.svg[align="center"]
+
 [source]
 ----
 import pyed
@@ -243,6 +249,9 @@ n3 = g.add_node(pyed.UmlNode, "UmlNode", stereotype="abstract", attributes="foo\
 |===
 
 === TableNode
+.Example of TableNode. Script used to make the plot is pyed/scripts/plot_indiv_element.py.
+image::table_node.svg[align="center"]
+
 [source]
 ----
 import pyed
@@ -268,6 +277,9 @@ t = g.add_node(pyed.TableNode, "Entity", table=table)
 |===
 
 === GenericNode
+.Example of GenericNode. Script used to make the plot is pyed/scripts/plot_indiv_element.py.
+image::generic_node.svg[align="center"]
+
 [source]
 ----
 import pyed
@@ -286,6 +298,9 @@ l = g.add_node(pyed.GenericNode, "Entity", description="line1\nline2\nline3")
 |===
 
 === Edge
+.Example of Edge. Script used to make the plot is pyed/scripts/plot_indiv_element.py.
+image::edge.svg[align="center"]
+
 [source]
 ----
 import pyed
@@ -328,6 +343,9 @@ image::edge_linetype.svg[]
 image::edge_arrowhead.svg[]
 
 === Group
+.Example of Group. Script used to make the plot is pyed/scripts/plot_indiv_element.py.
+image::group.svg[align="center"]
+
 [source]
 ----
 import pyed
@@ -343,25 +361,25 @@ e1 = grp1.add_edge(n4, n5)
 grp2 = grp1.add_group("2nd group")
 ----
 
-.ShapeNode parameters (see <<node_parameters>> for common parameters also applicable):
+.Group parameters:
 [frame="all",options="header"]
 |===
 | Parameter Name | Possible values | Description
-| name | Node name (title)
-| shape | Shape of the Group (by default, rectangle) (see <<shape>>)
-| title_style | dict of all values passed to the title label (see <<label_parameters>>)
-| closed | 'true' or 'false' (no idea what this does)
-| background | Background color as RGB (e.g. '#ffffff') or None if no color
-| transparent | Is the node transparent? 'true' or 'false'
-| border_color | Border color as RGB (e.g. '#ffffff') or None if no color
-| border_type | Border type (e.g. line, the default) (see <<arrowhead>>)
-| border_width | Border width in pixel (e.g. '1.0')
-| height | advanced parameters not used by default (expect a float as string)
-| width | advanced parameters not used by default (expect a float as string)
-| x | advanced parameters not used by default (expect a float as string)
-| y | advanced parameters not used by default (expect a float as string)
-| description | Node description (not displayed in Yed, so I don't know how usefull this is)
-| url | Node url (not displayed in Yed, so I don't know how usefull this is)
+| name | str | Node name (title)
+| shape | 'rectangle' | Shape of the Group (by default, rectangle) (see <<shape>>)
+| title_style | dict | dict of all values passed to the title label (see <<label_parameters>>)
+| closed | 'true' | 'true' or 'false' (no idea what this does)
+| background | None | Background color as RGB (e.g. '#ffffff') or None if no color
+| transparent | 'false' | Is the node transparent? 'true' or 'false'
+| border_color | '#000000' | Border color as RGB (e.g. '#ffffff') or None if no color
+| border_type | 'line' | Border type (e.g. line, the default) (see <<arrowhead>>)
+| border_width | '1.0' | Border width in pixel (e.g. '1.0')
+| height | '30.0' | advanced parameters not used by default (expect a float as string)
+| width | '60.0' | advanced parameters not used by default (expect a float as string)
+| x | None | advanced parameters not used by default (expect a float as string)
+| y | None | advanced parameters not used by default (expect a float as string)
+| description | '' | Node description (not displayed in Yed, so I don't know how usefull this is)
+| url | '' | Node url (not displayed in Yed, so I don't know how usefull this is)
 |===
 
 
