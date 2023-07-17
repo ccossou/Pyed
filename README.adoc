@@ -26,7 +26,7 @@ These pages are thought to provide quick documentation on what you can do with t
 I wanted functionalities that do not exist in those packages. I wanted a way to create package with enhanced data visualisation, in particular node with list of information (GenericNode in Pyed ; see <<generic_node>>) and node with table of data (TableNode in Pyed ; see <<table_node>>)
 
 === Principle
-This package will not create finalized graph on its own. You'll have to use https://www.yworks.com/products/yed[Yed] or another GUI that support .graphml to render the graph correct. By default, node size is not adapted to its content, and all nodes are on top of eachother.
+This package will not create finalized graph on its own. You'll have to use https://www.yworks.com/products/yed[Yed] or another GUI that support .graphml to render the graph correctly. By default, node size is not adapted to its content, and all nodes are on top of eachother.
 
 
 
@@ -55,11 +55,11 @@ import pyed
 ----
 
 == How to make a graph
-Pyed will not create a ready to use graph. You'll have to do some steps manually in Yed, but the node creation will be handled in Python completely.
+Pyed will not create a ready to use graph. You'll have to do some steps manually in https://www.yworks.com/products/yed[Yed], but the node creation will be handled in Python completely.
 
 .Steps to make a graph:
 . Write a python script to create the .graphml file with every node and edge you can wish for
-. Open the file in https://www.yworks.com/products/yed[Yed]
+. Open the .graphml file you produced using Pyed in https://www.yworks.com/products/yed[Yed]
 .. do menu:Tools[Fit Node to Label]
 +
 NOTE: Depending on your need, in the opened window, you might have to uncheck "Ignore Height" to ensure the node adapt properly to your content.
@@ -101,21 +101,22 @@ g.write_graph("test.graphml")
 
 == Xml Elements
 
-.All possible Element available in Pyed. Node title correspond to the class name (ShapeNode, UmlNode, GenericNode, TableNode, Edge). Script used to make the plot is pyed/scripts/plot_nodetypes.py.
+.All possible Elements available in Pyed. Node title correspond to the class name (ShapeNode, UmlNode, GenericNode, TableNode, Edge, Group). Script used to make the plot is *pyed/scripts/plot_nodetypes.py*.
 image::nodetypes.svg[]
 
 [[Label]]
 === Label
 This is not a proper element per say, but will be used in all other classes. Every node title, edge label (middle, source and target), description in GenericNode and table in TableNode uses Label under the hood.
 
-NOTE: All these parameters only have an effect inside the Label, and have no effect of the Node the Label is placed in.
+NOTE: All these parameters only have an effect inside the Label, and have no effect on the Node the Label is placed in.
 
-.Main Label parameters one can use. For alignment, `autoSizePolicy="node_size"` was used. Script used to make the plot is pyed/scripts/plot_label_parameters.py.
+.Main Label parameters one can use. For alignment, `autoSizePolicy="node_size"` was used. Script used to make the plot is *pyed/scripts/plot_label_parameters.py*.
 image::label_parameters.svg[]
 
-.Label autoSizePolicy values. Script used to make the plot is pyed/scripts/plot_label_size.py.
+.Label `autoSizePolicy` values. Script used to make the plot is *pyed/scripts/plot_label_size.py*.
 image::label_size.svg[]
 
+.Example on how to apply those parameter in an actual node:
 [source]
 ----
 g.add_node(pyed.ShapeNode, "foo", title_style=dict(fontFamily="Dialog",
@@ -144,14 +145,13 @@ These parameters have an effect on how the Label will be placed with respect to 
 
 Models allowed in ShapeNode, Group, UmlNode, GenericNode and TableNode (every element but Edge): ["internal", "corners", "sandwich", "sides", "eight_pos", "free", "custom"]
 
-.Label placement. Parent node is value for "*modelName*", child node is value for "*modelPosition*". Script used to make the plot is pyed/scripts/plot_label_placement.py.
+.Label placement for every Element but Edge. Parent node is value for "*modelName*", child node is value for "*modelPosition*". Script used to make the plot is pyed/scripts/plot_label_placement.py.
 image::label_placement.svg[]
 
 [source]
 ----
 g.add_node(pyed.ShapeNode, "foo", title_style={"modelName": "internal", "modelPosition": "t"})
 ----
-
 
 
 Models allowed for Edge: ["two_pos", "centered", "six_pos", "three_center", "center_slider", "side_slider", "free"]
