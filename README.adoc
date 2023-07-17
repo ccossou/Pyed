@@ -11,19 +11,22 @@
 :imagesdir:   doc/figures
 
 == Introduction
-This package is yet another tool to help generate graph using Python+Yed.
+This package is yet another tool to help generate graph using Python + https://www.yworks.com/products/yed[Yed].
 
 .Other packages that exists (that took the best names):
-* Pyyed (My package is loosely based on this one)
-* Pygraphml
+* https://github.com/jamesscottbrown/pyyed[Pyyed] (My package is loosely based on this one)
+* https://github.com/hadim/pygraphml[Pygraphml]
+* https://networkx.org/documentation/stable/reference/readwrite/graphml.html[NetworkX]
+
+My package focus on drawing simple graph to quickly visualise relations between informations. It's a crude subset of what graphs are capable of. My intent is to have a kind of https://inkscape.org/release[Inkscape], but for graph. https://www.yworks.com/products/yed[Yed] is that, but I don't want to add and draw manually dozen of nodes when trying to understand a datastructure or a code.
 
 These pages are thought to provide quick documentation on what you can do with this package, especially the different types of nodes and the parameter and values available.
 
 === Why another package?
-I wanted functionalities that do not exist in those packages. I wanted a way to create package with enhanced data visualisation, in particular node with list of information (GenericNode in Pyed) and node with table of data (TableNode in Pyed)
+I wanted functionalities that do not exist in those packages. I wanted a way to create package with enhanced data visualisation, in particular node with list of information (GenericNode in Pyed ; see <<generic_node>>) and node with table of data (TableNode in Pyed ; see <<table_node>>)
 
 === Principle
-This package will not create finalized graph on its own. You'll have to use Yed or another GUI that support .graphml to render the graph correct. By default, node size is not adapted to its content, and all nodes are on top of eachother.
+This package will not create finalized graph on its own. You'll have to use https://www.yworks.com/products/yed[Yed] or another GUI that support .graphml to render the graph correct. By default, node size is not adapted to its content, and all nodes are on top of eachother.
 
 
 
@@ -56,7 +59,7 @@ Pyed will not create a ready to use graph. You'll have to do some steps manually
 
 .Steps to make a graph:
 . Write a python script to create the .graphml file with every node and edge you can wish for
-. Open the file in Yed
+. Open the file in https://www.yworks.com/products/yed[Yed]
 .. do menu:Tools[Fit Node to Label]
 +
 NOTE: Depending on your need, in the opened window, you might have to uncheck "Ignore Height" to ensure the node adapt properly to your content.
@@ -248,6 +251,7 @@ n3 = g.add_node(pyed.UmlNode, "UmlNode", stereotype="abstract", attributes="foo\
 | methods | text (or empty string) | Class methods
 |===
 
+[[table_node]]
 === TableNode
 .Example of TableNode. Script used to make the plot is pyed/scripts/plot_indiv_element.py.
 image::table_node.svg[align="center"]
@@ -276,6 +280,7 @@ t = g.add_node(pyed.TableNode, "TableNode", table=table)
 | table_style | dict | dict of all values passed to the table label (see <<label_parameters>>)
 |===
 
+[[generic_node]]
 === GenericNode
 .Example of GenericNode. Script used to make the plot is pyed/scripts/plot_indiv_element.py.
 image::generic_node.svg[align="center"]
