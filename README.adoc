@@ -5,13 +5,26 @@
 :encoding: utf-8
 :lang: en
 :numbered:
+:experimental:
 :source-language: python
-:imagesdir:   doc
+:imagesdir:   doc/figures
 
 == Introduction
-This package is a tool to help generate graph using Python+Yed. This package will not create finalized graph on its own. You'll have to use Yed or another GUI that support .graphml to render the graph correct. By default, node size is not adapted to its content, and all nodes are on top of eachother.
+This package is yet another tool to help generate graph using Python+Yed.
+
+.Other packages that exists (that took the best names):
+* Pyyed (My package is loosely based on this one)
+* Pygraphml
 
 These pages are thought to provide quick documentation on what you can do with this package, especially the different types of nodes and the parameter and values available.
+
+=== Why another package?
+I wanted functionalities that do not exist in those packages. I wanted a way to create package with enhanced data visualisation, in particular node with list of information (GenericNode in Pyed) and node with table of data (TableNode in Pyed)
+
+=== Principle
+This package will not create finalized graph on its own. You'll have to use Yed or another GUI that support .graphml to render the graph correct. By default, node size is not adapted to its content, and all nodes are on top of eachother.
+
+
 
 === How to install
 Without downloading the project, one can do:
@@ -38,6 +51,18 @@ import pyed
 ----
 
 == How to make a graph
+Pyed will not create a ready to use graph. You'll have to do some steps manually in Yed, but the node creation will be handled in Python completely.
+
+.Steps to make a graph:
+. Write a python script to create the .graphml file with every node and edge you can wish for
+. Open the file in Yed
+.. do menu:Tools[Fit Node to Label]
++
+NOTE: Depending on your need, in the opened window, you might have to uncheck "Ignore Height" to ensure the node adapt properly to your content.
++
+.. In the Layout menu, use one of the layouts available to properly display the nodes that are currently overlapping one another. A good start is to use either "One Click Layout" or "Hierarchical".
+. You can then save and export to .svg if you want to display this graph in one of your document (other export format are available.)
+
 [source]
 ----
 import pyed
@@ -71,15 +96,58 @@ g.write_graph("test.graphml")
 ----
 
 == Xml Elements
+
+.All possible Element available in Pyed. Node title correspond to the class name (ShapeNode, UmlNode, GenericNode, TableNode, Edge). Script used to make the plot is pyed/scripts/plot_nodetypes.py.
+image::nodetypes.svg[]
+
 [[Label]]
 === Label
-This is not a proper element per say, but will be used in all other classes.
+This is not a proper element per say, but will be used in all other classes. Every node title, edge label (middle, source and target), description in GenericNode and table in TableNode uses Label under the hood.
 
+NOTE: All these parameters only have an effect inside the Label, and have no effect of the Node the Label is placed in.
 
+.Main Label parameters one can use. For alignment, `autoSizePolicy="node_size"` was used. Script used to make the plot is pyed/scripts/plot_label_parameters.py.
+image::label_parameters.svg[]
+
+.Label autoSizePolicy values. Script used to make the plot is pyed/scripts/plot_label_size.py.
+image::label_size.svg[]
+
+[source]
+----
+g.add_node(pyed.ShapeNode, "foo", title_style=dict(fontFamily="Dialog",
+rotationAngle="60", underlinedText="true", lineColor=None))
+----
+
+.Label parameters
+[frame="all",options="header"]
+|===
+| Name | Example | Possible values
+| alignment | 'center' | ['left', 'center', 'right']
+| fontStyle | 'plain' | ["plain", "bold", "italic", "bolditalic"]
+| underlinedText | 'true' | ["true", "false"]
+| lineColor | '#FFde78' | None or a color
+| backgroundColor | '#FFde78' | None or a color
+| textColor | '#FFde78' | None or a color
+| fontFamily | 'Courier' | Font name (don't have a full list)
+| rotationAngle | '30' | rotation in degrees from 0 to 360
+| fontSize | '20' | positive integer
+| autoSizePolicy | 'content' | ["node_width", "node_size", "node_height", "content"] (will not work for labels in an edge)
+|===
+
+==== Label placement in Node
+These parameters have an effect on how the Label will be placed with respect to the Node. To that extent, the Label parameter autoSizePolicy do matter (at least for all object except Edge, see <<EdgeLabel>>)
+
+.Label placement. Parent node is value for "*modelName*", child node is value for "*modelPosition*". Script used to make the plot is pyed/scripts/plot_label_placement.py.
+image::label_placement.svg[]
+
+[source]
+----
+g.add_node(pyed.ShapeNode, "foo", title_style={"modelName": "internal", "modelPosition": "t"})
+----
 
 [[EdgeLabel]]
 ==== Specific case of Label for Edge
-
+Parameter *autoSizePolicy* is not allowed when using `tag="y:EdgeLabel"`
 
 === ShapeNode
 === UmlNode
@@ -87,6 +155,10 @@ This is not a proper element per say, but will be used in all other classes.
 === GenericNode
 === Edge
 === Group
+
+== FAQ
+=== alignment attribute doesn't work
+In Label, alignment has no effect if you have `autoSizePolicy="content"` because since the Label tightly fit its content, there's no room for moving the text left or right of the label. You need "*node_size*" or "*node_width*" for alignment to work.
 
 == Tools
 
