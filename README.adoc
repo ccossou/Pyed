@@ -58,14 +58,8 @@ import pyed
 Pyed will not create a ready to use graph. You'll have to do some steps manually in https://www.yworks.com/products/yed[Yed], but the node creation will be handled in Python completely.
 
 .Steps to make a graph:
-. Write a python script to create the .graphml file with every node and edge you can wish for
-. Open the .graphml file you produced using Pyed in https://www.yworks.com/products/yed[Yed]
-.. do menu:Tools[Fit Node to Label]
+. Write a python script to create the .graphml file with every node and edge you can wish for (see *examples/make_graph.py* for a start)
 +
-NOTE: Depending on your need, in the opened window, you might have to uncheck "Ignore Height" to ensure the node adapt properly to your content.
-+
-.. In the Layout menu, use one of the layouts available to properly display the nodes that are currently overlapping one another. A good start is to use either "One Click Layout" or "Hierarchical".
-. You can then save and export to .svg if you want to display this graph in one of your document (other export format are available.)
 
 [source]
 ----
@@ -98,10 +92,18 @@ g.add_edge(n2, grp1)
 
 g.write_graph("test.graphml")
 ----
++
+. Open the .graphml file you produced in https://www.yworks.com/products/yed[Yed]
+.. do menu:Tools[Fit Node to Label]
++
+NOTE: Depending on your need, in the opened window, you might have to uncheck "Ignore Height" to ensure the node adapt properly to your content.
++
+.. In the Layout menu, use one of the layouts available to properly display the nodes that are currently overlapping one another. A good start is to use either "One Click Layout" or "Hierarchical".
+. You can then save and export to .svg if you want to display this graph in one of your document (other export format are available.)
 
 == Xml Elements
 
-.All possible Elements available in Pyed. Node title correspond to the class name (ShapeNode, UmlNode, GenericNode, TableNode, Edge, Group). Script used to make the plot is *pyed/scripts/plot_nodetypes.py*.
+.All possible Elements available in Pyed. Node title correspond to the class name (ShapeNode, UmlNode, GenericNode, TableNode, Edge, Group). Script used to make the plot is *examples/plot_nodetypes.py*.
 image::nodetypes.svg[]
 
 [[Label]]
@@ -110,10 +112,10 @@ This is not a proper element per say, but will be used in all other classes. Eve
 
 NOTE: All these parameters only have an effect inside the Label, and have no effect on the Node the Label is placed in.
 
-.Main Label parameters one can use. For alignment, `autoSizePolicy="node_size"` was used. Script used to make the plot is *pyed/scripts/plot_label_parameters.py*.
+.Main Label parameters one can use. For alignment, `autoSizePolicy="node_size"` was used. Script used to make the plot is *examples/plot_label_parameters.py*.
 image::label_parameters.svg[]
 
-.Label `autoSizePolicy` values. Script used to make the plot is *pyed/scripts/plot_label_size.py*.
+.Label `autoSizePolicy` values. Script used to make the plot is *examples/plot_label_size.py*.
 image::label_size.svg[]
 
 .Example on how to apply those parameter in an actual node:
@@ -145,7 +147,7 @@ Every element but Edge mean: Group, ShapeNode, UmlNode, GenericNode and TableNod
 
 These parameters have an effect on how the Label will be placed with respect to the Node. To that extent, the Label parameter autoSizePolicy do matter (at least for all object except Edge, see <<EdgeLabel>>)
 
-.Label placement for every Element but Edge. Parent node is value for "*modelName*", child node is value for "*modelPosition*". Script used to make the plot is pyed/scripts/plot_label_placement.py.
+.Label placement for every Element but Edge. Parent node is value for "*modelName*", child node is value for "*modelPosition*". Script used to make the plot is examples/plot_label_placement.py.
 image::label_placement.svg[]
 
 [source]
@@ -191,7 +193,7 @@ image::edge_center_slider_placement.png[]
 .Edge Label placement with model `side_slider`.
 image::edge_side_slider_placement.png[]
 
-.Label placement for Edge only. Parent node is value for "*modelName*", Edge label is value for "*modelPosition*". Script used to make the plot is pyed/scripts/plot_edge_label_placement.py.
+.Label placement for Edge only. Parent node is value for "*modelName*", Edge label is value for "*modelPosition*". Script used to make the plot is examples/plot_edge_label_placement.py.
 image::edge_label_placement.svg[]
 
 [[Node]]
@@ -218,7 +220,7 @@ image::edge_label_placement.svg[]
 |===
 
 === ShapeNode
-.Example of ShapeNode. Script used to make the plot is pyed/scripts/plot_indiv_element.py.
+.Example of ShapeNode. Script used to make the plot is examples/plot_indiv_element.py.
 image::shape_node.svg[align="center"]
 
 [source]
@@ -241,11 +243,11 @@ g.add_node(pyed.ShapeNode, "foo")
 |===
 
 [[shape]]
-.shape for ShapeNode or Group. Script used to make the plot is pyed/scripts/plot_node_shape.py.
+.shape for ShapeNode or Group. Script used to make the plot is examples/plot_node_shape.py.
 image::node_shape.svg[]
 
 === UmlNode
-.Example of UmlNode. Script used to make the plot is pyed/scripts/plot_indiv_element.py.
+.Example of UmlNode. Script used to make the plot is examples/plot_indiv_element.py.
 image::uml_node.svg[align="center"]
 
 [source]
@@ -268,7 +270,7 @@ n3 = g.add_node(pyed.UmlNode, "UmlNode", stereotype="abstract", attributes="foo\
 
 [[table_node]]
 === TableNode
-.Example of TableNode. Script used to make the plot is pyed/scripts/plot_indiv_element.py.
+.Example of TableNode. Script used to make the plot is examples/plot_indiv_element.py.
 image::table_node.svg[align="center"]
 
 [source]
@@ -297,7 +299,7 @@ t = g.add_node(pyed.TableNode, "TableNode", table=table)
 
 [[generic_node]]
 === GenericNode
-.Example of GenericNode. Script used to make the plot is pyed/scripts/plot_indiv_element.py.
+.Example of GenericNode. Script used to make the plot is examples/plot_indiv_element.py.
 image::generic_node.svg[align="center"]
 
 [source]
@@ -318,7 +320,7 @@ l = g.add_node(pyed.GenericNode, "GenericNode", description="line1\nline2\nline3
 |===
 
 === Edge
-.Example of Edge. Script used to make the plot is pyed/scripts/plot_indiv_element.py.
+.Example of Edge. Script used to make the plot is examples/plot_indiv_element.py.
 image::edge.svg[align="center"]
 
 [source]
@@ -355,15 +357,15 @@ e1 = g.add_edge(n1, n2, label="Edge", label_style={"backgroundColor": "#ffffff"}
 |===
 
 [[linetype]]
-.Line type for edges. Script used to make the plot is pyed/scripts/plot_edge_linetype.py.
+.Line type for edges. Script used to make the plot is examples/plot_edge_linetype.py.
 image::edge_linetype.svg[]
 
 [[arrowhead]]
-.Line type for edges. Script used to make the plot is pyed/scripts/plot_edge_arrowhead.py.
+.Arrow type for edges. Script used to make the plot is examples/plot_edge_arrowhead.py.
 image::edge_arrowhead.svg[]
 
 === Group
-.Example of Group. Script used to make the plot is pyed/scripts/plot_indiv_element.py.
+.Example of Group. Script used to make the plot is examples/plot_indiv_element.py.
 image::group.svg[align="center"]
 
 [source]
