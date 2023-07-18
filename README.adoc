@@ -34,7 +34,7 @@ This package will not create finalized graph on its own. You'll have to use http
 Without downloading the project, one can do:
 [source]
 ----
-pip install git+URL
+pip install pyed
 ----
 (URL being the github repository front page)
 
