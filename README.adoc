@@ -45,16 +45,7 @@ pip install .
 pip install -e .
 ----
 
-=== How to use
-
-. First import the package:
-+
-[source, python]
-----
-import pyed
-----
-
-== How to make a graph
+=== How to make a graph
 Pyed will not create a ready to use graph. You'll have to do some steps manually in https://www.yworks.com/products/yed[Yed], but the node creation will be handled in Python completely.
 
 .Steps to make a graph:
@@ -106,98 +97,9 @@ NOTE: Depending on your need, in the opened window, you might have to uncheck "I
 .All possible Elements available in Pyed. Node title correspond to the class name (ShapeNode, UmlNode, GenericNode, TableNode, Edge, Group). Script used to make the plot is *examples/plot_nodetypes.py*.
 image::nodetypes.svg[]
 
-[[Label]]
-=== Label
-This is not a proper element per say, but will be used in all other classes. Every node title, edge label (middle, source and target), description in GenericNode and table in TableNode uses Label under the hood.
-
-NOTE: All these parameters only have an effect inside the Label, and have no effect on the Node the Label is placed in.
-
-.Main Label parameters one can use. For alignment, `autoSizePolicy="node_size"` was used. Script used to make the plot is *examples/plot_label_parameters.py*.
-image::label_parameters.svg[]
-
-.Label `autoSizePolicy` values. Script used to make the plot is *examples/plot_label_size.py*.
-image::label_size.svg[]
-
-.Example on how to apply those parameter in an actual node:
-[source]
-----
-g.add_node(pyed.ShapeNode, "foo", title_style=dict(fontFamily="Dialog",
-rotationAngle="60", underlinedText="true", lineColor=None))
-----
-
-[[label_parameters]]
-.Label parameters
-[frame="all",options="header"]
-|===
-| Name | Example | Possible values
-| alignment | 'center' | ['left', 'center', 'right']
-| fontStyle | 'plain' | ['plain', 'bold', 'italic', 'bolditalic']
-| underlinedText | 'true' | ['true', 'false']
-| lineColor | '#FFde78' | None or a color
-| backgroundColor | '#FFde78' | None or a color
-| textColor | '#FFde78' | None or a color
-| fontFamily | 'Courier' | Font name (don't have a full list)
-| rotationAngle | '30' | rotation in degrees from 0 to 360
-| fontSize | '20' | positive integer
-| autoSizePolicy | 'content' | ['node_width', 'node_size', 'node_height', 'content'] (will not work for labels in an edge)
-|===
-
-==== Label placement for every element but Edge)
-Every element but Edge mean: Group, ShapeNode, UmlNode, GenericNode and TableNode.
-
-These parameters have an effect on how the Label will be placed with respect to the Node. To that extent, the Label parameter autoSizePolicy do matter (at least for all object except Edge, see <<EdgeLabel>>)
-
-.Label placement for every Element but Edge. Parent node is value for "*modelName*", child node is value for "*modelPosition*". Script used to make the plot is examples/plot_label_placement.py.
-image::label_placement.svg[]
-
-[source]
-----
-g.add_node(pyed.ShapeNode, "foo", title_style={"modelName": "internal", "modelPosition": "t"})
-----
-
-.Placement (*modelPosition*) parameters for ShapeNode, Group, UmlNode, GenericNode and TableNode (every element but Edge) depending on the model (*modelName*) selected:
-[frame="all",options="header"]
-|===
-| `modelName` | `modelPosition` Possible values
-| internal | ['t', 'b', 'c', 'l', 'r', 'tl', 'tr', 'bl', 'br']
-| corners | ['nw', 'ne', 'sw', 'se']
-| sandwich | ['n', 's']
-| sides | ['n', 'e', 's', 'w']
-| eight_pos | ['n', 'e', 's', 'w', 'nw', 'ne', 'sw', 'se']
-| custom | None
-| free | 'anywhere'
-|===
-
-[[EdgeLabel]]
-==== Label placement for Edge
-Parameter *autoSizePolicy* is not allowed for Label on an Edge
-
-.Placement (*modelPosition*) parameters for Edge only depending on the model (*modelName*) selected:
-[frame="all",options="header"]
-|===
-| `modelName` | `modelPosition` Possible values
-| two_pos | ['head', 'tail']
-| centered | ['center']
-| six_pos | ['shead', 'thead', 'head', 'stail', 'ttail', 'tail']
-| three_center | ['center', 'scentr', 'tcentr']
-| center_slider | None
-| side_slider | None
-| free | 'anywhere'
-|===
-
-NOTE: `center_slider` and `side_slider` are dynamic placement and you'll have to place them manually in Yed later. As the name suggest, with `center_slider` you'll have to choose different position on the edge while for `side_slider` you'll have to choose positions around the edge (on each side).
-
-.Edge Label placement with model `center_slider`.
-image::edge_center_slider_placement.png[]
-
-.Edge Label placement with model `side_slider`.
-image::edge_side_slider_placement.png[]
-
-.Label placement for Edge only. Parent node is value for "*modelName*", Edge label is value for "*modelPosition*". Script used to make the plot is examples/plot_edge_label_placement.py.
-image::edge_label_placement.svg[]
-
+=== Nodes
 [[Node]]
-=== Node parameter global for all xxxNode
+==== Global parameters for all xxxNode
 
 [[node_parameters]]
 .Generic parameters applicable for all xxxNode:
@@ -219,7 +121,7 @@ image::edge_label_placement.svg[]
 | url | Node url (not displayed in Yed, so I don't know how usefull this is)
 |===
 
-=== ShapeNode
+==== ShapeNode
 .Example of ShapeNode. Script used to make the plot is examples/plot_indiv_element.py.
 image::shape_node.svg[align="center"]
 
@@ -246,7 +148,7 @@ g.add_node(pyed.ShapeNode, "foo")
 .shape for ShapeNode or Group. Script used to make the plot is examples/plot_node_shape.py.
 image::node_shape.svg[]
 
-=== UmlNode
+==== UmlNode
 .Example of UmlNode. Script used to make the plot is examples/plot_indiv_element.py.
 image::uml_node.svg[align="center"]
 
@@ -269,7 +171,7 @@ n3 = g.add_node(pyed.UmlNode, "UmlNode", stereotype="abstract", attributes="foo\
 |===
 
 [[table_node]]
-=== TableNode
+==== TableNode
 .Example of TableNode. Script used to make the plot is examples/plot_indiv_element.py.
 image::table_node.svg[align="center"]
 
@@ -298,7 +200,7 @@ t = g.add_node(pyed.TableNode, "TableNode", table=table)
 |===
 
 [[generic_node]]
-=== GenericNode
+==== GenericNode
 .Example of GenericNode. Script used to make the plot is examples/plot_indiv_element.py.
 image::generic_node.svg[align="center"]
 
@@ -404,6 +306,96 @@ grp2 = grp1.add_group("2nd group")
 | url | '' | Node url (not displayed in Yed, so I don't know how usefull this is)
 |===
 
+
+[[Label]]
+=== Label
+This is not a proper element per say, but will be used in all other classes. Every node title, edge label (middle, source and target), description in GenericNode and table in TableNode uses Label under the hood.
+
+NOTE: All these parameters only have an effect inside the Label, and have no effect on the Node the Label is placed in.
+
+.Main Label parameters one can use. For alignment, `autoSizePolicy="node_size"` was used. Script used to make the plot is *examples/plot_label_parameters.py*.
+image::label_parameters.svg[]
+
+.Label `autoSizePolicy` values. Script used to make the plot is *examples/plot_label_size.py*.
+image::label_size.svg[]
+
+.Example on how to apply those parameter in an actual node:
+[source]
+----
+g.add_node(pyed.ShapeNode, "foo", title_style=dict(fontFamily="Dialog",
+rotationAngle="60", underlinedText="true", lineColor=None))
+----
+
+[[label_parameters]]
+.Label parameters
+[frame="all",options="header"]
+|===
+| Name | Example | Possible values
+| alignment | 'center' | ['left', 'center', 'right']
+| fontStyle | 'plain' | ['plain', 'bold', 'italic', 'bolditalic']
+| underlinedText | 'true' | ['true', 'false']
+| lineColor | '#FFde78' | None or a color
+| backgroundColor | '#FFde78' | None or a color
+| textColor | '#FFde78' | None or a color
+| fontFamily | 'Courier' | Font name (don't have a full list)
+| rotationAngle | '30' | rotation in degrees from 0 to 360
+| fontSize | '20' | positive integer
+| autoSizePolicy | 'content' | ['node_width', 'node_size', 'node_height', 'content'] (will not work for labels in an edge)
+|===
+
+==== Label placement for every element but Edge)
+Every element but Edge mean: Group, ShapeNode, UmlNode, GenericNode and TableNode.
+
+These parameters have an effect on how the Label will be placed with respect to the Node. To that extent, the Label parameter autoSizePolicy do matter (at least for all object except Edge, see <<EdgeLabel>>)
+
+.Label placement for every Element but Edge. Parent node is value for "*modelName*", child node is value for "*modelPosition*". Script used to make the plot is examples/plot_label_placement.py.
+image::label_placement.svg[]
+
+[source]
+----
+g.add_node(pyed.ShapeNode, "foo", title_style={"modelName": "internal", "modelPosition": "t"})
+----
+
+.Placement (*modelPosition*) parameters for ShapeNode, Group, UmlNode, GenericNode and TableNode (every element but Edge) depending on the model (*modelName*) selected:
+[frame="all",options="header"]
+|===
+| `modelName` | `modelPosition` Possible values
+| internal | ['t', 'b', 'c', 'l', 'r', 'tl', 'tr', 'bl', 'br']
+| corners | ['nw', 'ne', 'sw', 'se']
+| sandwich | ['n', 's']
+| sides | ['n', 'e', 's', 'w']
+| eight_pos | ['n', 'e', 's', 'w', 'nw', 'ne', 'sw', 'se']
+| custom | None
+| free | 'anywhere'
+|===
+
+[[EdgeLabel]]
+==== Label placement for Edge
+Parameter *autoSizePolicy* is not allowed for Label on an Edge
+
+.Placement (*modelPosition*) parameters for Edge only depending on the model (*modelName*) selected:
+[frame="all",options="header"]
+|===
+| `modelName` | `modelPosition` Possible values
+| two_pos | ['head', 'tail']
+| centered | ['center']
+| six_pos | ['shead', 'thead', 'head', 'stail', 'ttail', 'tail']
+| three_center | ['center', 'scentr', 'tcentr']
+| center_slider | None
+| side_slider | None
+| free | 'anywhere'
+|===
+
+NOTE: `center_slider` and `side_slider` are dynamic placement and you'll have to place them manually in Yed later. As the name suggest, with `center_slider` you'll have to choose different position on the edge while for `side_slider` you'll have to choose positions around the edge (on each side).
+
+.Edge Label placement with model `center_slider`.
+image::edge_center_slider_placement.png[]
+
+.Edge Label placement with model `side_slider`.
+image::edge_side_slider_placement.png[]
+
+.Label placement for Edge only. Parent node is value for "*modelName*", Edge label is value for "*modelPosition*". Script used to make the plot is examples/plot_edge_label_placement.py.
+image::edge_label_placement.svg[]
 
 == FAQ
 === alignment attribute doesn't work
