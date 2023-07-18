@@ -140,10 +140,10 @@ rotationAngle="60", underlinedText="true", lineColor=None))
 | autoSizePolicy | 'content' | ['node_width', 'node_size', 'node_height', 'content'] (will not work for labels in an edge)
 |===
 
-==== Label placement in Node
-These parameters have an effect on how the Label will be placed with respect to the Node. To that extent, the Label parameter autoSizePolicy do matter (at least for all object except Edge, see <<EdgeLabel>>)
+==== Label placement for every element but Edge)
+Every element but Edge mean: Group, ShapeNode, UmlNode, GenericNode and TableNode.
 
-Models allowed in ShapeNode, Group, UmlNode, GenericNode and TableNode (every element but Edge): ["internal", "corners", "sandwich", "sides", "eight_pos", "free", "custom"]
+These parameters have an effect on how the Label will be placed with respect to the Node. To that extent, the Label parameter autoSizePolicy do matter (at least for all object except Edge, see <<EdgeLabel>>)
 
 .Label placement for every Element but Edge. Parent node is value for "*modelName*", child node is value for "*modelPosition*". Script used to make the plot is pyed/scripts/plot_label_placement.py.
 image::label_placement.svg[]
@@ -153,10 +153,7 @@ image::label_placement.svg[]
 g.add_node(pyed.ShapeNode, "foo", title_style={"modelName": "internal", "modelPosition": "t"})
 ----
 
-
-Models allowed for Edge: ["two_pos", "centered", "six_pos", "three_center", "center_slider", "side_slider", "free"]
-
-.Placement (*modelPosition*) parameters depending on the model (*modelName*) selected:
+.Placement (*modelPosition*) parameters for ShapeNode, Group, UmlNode, GenericNode and TableNode (every element but Edge) depending on the model (*modelName*) selected:
 [frame="all",options="header"]
 |===
 | `modelName` | `modelPosition` Possible values
@@ -166,6 +163,17 @@ Models allowed for Edge: ["two_pos", "centered", "six_pos", "three_center", "cen
 | sides | ['n', 'e', 's', 'w']
 | eight_pos | ['n', 'e', 's', 'w', 'nw', 'ne', 'sw', 'se']
 | custom | None
+| free | 'anywhere'
+|===
+
+[[EdgeLabel]]
+==== Label placement for Edge
+Parameter *autoSizePolicy* is not allowed for Label on an Edge
+
+.Placement (*modelPosition*) parameters for Edge only depending on the model (*modelName*) selected:
+[frame="all",options="header"]
+|===
+| `modelName` | `modelPosition` Possible values
 | two_pos | ['head', 'tail']
 | centered | ['center']
 | six_pos | ['shead', 'thead', 'head', 'stail', 'ttail', 'tail']
@@ -175,9 +183,16 @@ Models allowed for Edge: ["two_pos", "centered", "six_pos", "three_center", "cen
 | free | 'anywhere'
 |===
 
-[[EdgeLabel]]
-==== Specific case of Label for Edge
-Parameter *autoSizePolicy* is not allowed when using `tag="y:EdgeLabel"`
+NOTE: `center_slider` and `side_slider` are dynamic placement and you'll have to place them manually in Yed later. As the name suggest, with `center_slider` you'll have to choose different position on the edge while for `side_slider` you'll have to choose positions around the edge (on each side).
+
+.Edge Label placement with model `center_slider`.
+image::edge_center_slider_placement.png[]
+
+.Edge Label placement with model `side_slider`.
+image::edge_side_slider_placement.png[]
+
+.Label placement for Edge only. Parent node is value for "*modelName*", Edge label is value for "*modelPosition*". Script used to make the plot is pyed/scripts/plot_edge_label_placement.py.
+image::edge_label_placement.svg[]
 
 [[Node]]
 === Node parameter global for all xxxNode

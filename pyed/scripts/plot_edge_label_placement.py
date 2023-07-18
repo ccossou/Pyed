@@ -1,30 +1,28 @@
 """
-Layout > One Click Layout
-Node labeling: None (if horizontal is set, it removes label placement)
-Routing style: Arc
+Layout > Hierarchical > Left to Right
+Layout > Edge routing > Straight Line
 """
-
 import pyed
 
-def plot_param(g, model_name, placements):
-    parent = g.add_node(pyed.ShapeNode, f"{model_name}", width="60")
 
-    kwargs = {"autoSizePolicy": "content", "lineColor": "#ff0000"}
+def plot_param(g, model_name, placements):
+    kwargs = {"backgroundColor": "#ffffff", "lineColor": "#ff0000"}
     for value in placements:
+        parent = g.add_node(pyed.ShapeNode, f"{model_name}")
         kwargs["modelName"] = model_name  # To override existing parameter if any
         kwargs["modelPosition"] = value  # To override existing parameter if any
 
-        node = g.add_node(pyed.ShapeNode, f"{value}", height="60", width="80", title_style=kwargs)
-        g.add_edge(parent, node)
+        node = g.add_node(pyed.ShapeNode, "target")
+        g.add_edge(parent, node, label=f"{value}", label_style=kwargs)
 
 
-params = {TODO replace by edge models and find a way to display
-    "internal": ["t", "b", "c", "l", "r", "tl", "tr", "bl", "br"],
-    "corners": ["nw", "ne", "sw", "se"],
-    "sandwich": ["n", "s"],
-    "sides": ["n", "e", "s", "w"],
-    "eight_pos": ["n", "e", "s", "w", "nw", "ne", "sw", "se"],
-    "custom": [None],
+params = {
+    "two_pos": ["head", "tail"],
+    "centered": ["center"],
+    "six_pos": ["shead", "thead", "head", "stail", "ttail", "tail"],
+    "three_center": ["center", "scentr", "tcentr"],
+    # "center_slider": [None],
+    # "side_slider": [None],
     "free": ["anywhere"],
 }
 
