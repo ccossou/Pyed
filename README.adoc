@@ -36,7 +36,6 @@ Without downloading the project, one can do:
 ----
 pip install pyed
 ----
-(URL being the github repository front page)
 
 For developer that have the git repository, one can do:
 [source,bash]
