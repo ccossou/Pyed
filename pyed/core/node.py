@@ -14,7 +14,8 @@ class Node(XmlItem, metaclass=ABCMeta):
     node_type = None
 
     default_title_style = dict(alignment="center", font_family="Dialog",
-                               underlined_text="false", font_style="plain", font_size="12", )
+                               underlined_text="false", font_style="plain", font_size="12",
+                               modelName="internal", modelPosition="c")
 
     def __init__(self, name, title_style={}, background="#ffffff", transparent="false", border_color="#000000",
                  border_type="line", border_width="1.0", height=False, width=False, x=False, y=False, description="",
