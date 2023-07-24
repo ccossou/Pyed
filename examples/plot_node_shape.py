@@ -1,5 +1,7 @@
 """
-Layout > Hierarchical (top to bottom)
+Layout > Radial
+Node labeling: None
+Routing style: Arc
 """
 
 import pyed
