@@ -95,6 +95,8 @@ class Graph(XmlItem):
         self._construct_graphml()
 
         tree = ET.ElementTree(self.graphml)
+
+        print(f"Write graph to {filename}")
         tree.write(filename)
 
     def get_graph(self):
