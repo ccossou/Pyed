@@ -485,22 +485,3 @@ FAQ
 alignment attribute doesn't work
 ----------------
 In Label, alignment has no effect if you have ``autoSizePolicy="content"`` because since the Label tightly fit its content, there's no room for moving the text left or right of the label. You need "*node_size*" or "*node_width*" for alignment to work.
-
-Tools
-===========
-
-.. _init_log:
-init_log
-----------------
-
-.. code-block:: python
-
-   pyed.init_log(log="pyed.log", stdout_loglevel="INFO", file_loglevel="DEBUG")
-
-.parameters:
-
-* ``log``: filename where to store logs. By default "pyed.log"
-* ``stdout_loglevel``: log level for standard output (ERROR, WARNING, INFO, DEBUG)
-* ``file_loglevel``: log level for log file (ERROR, WARNING, INFO, DEBUG)
-* [optional] ``extra_config``: Set of extra properties to be added to the dict_config for logging
-
