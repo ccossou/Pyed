@@ -18,7 +18,7 @@ How to make a graph
 -----------------------
 Pyed will not create a ready to use graph. You'll have to do some steps manually in `Yed <https://www.yworks.com/products/yed>`_, but the node creation will be handled in Python completely.
 
-.. figure:: source/figures/graph.svg
+.. figure:: figures/graph.svg
 
    Example of graph to showcase possible objects. Script used to make the plot is examples/make_graph.py.
 

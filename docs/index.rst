@@ -2,6 +2,10 @@ Welcome to Pyed's documentation!
 ================================
 This package is yet another tool to help generate graph using Python + `Yed <https://www.yworks.com/products/yed>`_.
 
+.. figure:: source/figures/graph.svg
+
+   Example of graph to showcase possible objects. Script used to make the plot is examples/make_graph.py.
+
 Other packages that exists (that took the best names):
 
 * `Pyyed <https://github.com/jamesscottbrown/pyyed>`_ (My package is loosely based on this one)
