@@ -28,5 +28,5 @@ Contents
 
 .. toctree::
 
-   intro
-   sub-package
+   source/intro
+   source/sub-package

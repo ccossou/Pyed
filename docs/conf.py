@@ -23,7 +23,7 @@ extensions = [
 source_suffix = '.rst'
 
 # The master toctree document.
-master_doc = 'source/index'
+master_doc = 'index'
 
 intersphinx_mapping = {
     'python': ('https://docs.python.org/3/', None),
