@@ -23,7 +23,7 @@ My package focus on drawing simple graph to quickly visualise relations between 
 These pages are thought to provide quick documentation on what you can do with this package, especially the different types of nodes and the parameter and values available.
 
 === Why another package?
-I wanted functionalities that do not exist in those packages. I wanted a way to create package with enhanced data visualisation, in particular node with list of information (GenericNode in Pyed ; see <<generic_node>>) and node with table of data (TableNode in Pyed ; see <<table_node>>)
+I wanted functionalities that do not exist in those packages. I wanted a way to create package with enhanced data visualisation, in particular node with list of information (GenericNode in Pyed ; see <<generic_node>>), node with table of data (TableNode in Pyed ; see <<table_node>>) and custom nodes with any .svg file as a shape (SvgNode in Pyed ; see <<svg_node>>).
 
 === Principle
 This package will not create finalized graph on its own. You'll have to use https://www.yworks.com/products/yed[Yed] or another GUI that support .graphml to render the graph correctly. By default, node size is not adapted to its content, and all nodes are on top of eachother.
