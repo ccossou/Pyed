@@ -35,6 +35,8 @@ n5 = grp1.add_node(pyed.ShapeNode, 'abc2', title_style=dict(fontSize="72"), heig
 g.add_edge(n4, n5)
 g.add_edge(n2, grp1)
 
+n6 = g.add_node(pyed.SvgNode, "SvgNode", svg_filename="yed_regular_hexagon.svg")
+
 for (idx, n) in g.nodes.items():
     print(f"{idx}: {n.name}")
 

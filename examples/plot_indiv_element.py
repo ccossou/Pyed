@@ -13,6 +13,10 @@ n3 = g.add_node(pyed.UmlNode, "UmlNode", stereotype="abstract", attributes="foo\
 g.write_graph("uml_node.graphml")
 
 g = pyed.Graph()
+n4 = g.add_node(pyed.SvgNode, "SvgNode", svg_filename="yed_regular_hexagon.svg")
+g.write_graph("svg_node.graphml")
+
+g = pyed.Graph()
 n1 = g.add_node(pyed.ShapeNode, 'node1 (source)')
 n2 = g.add_node(pyed.ShapeNode, 'node2 (target)')
 e1 = g.add_edge(n1, n2, label="Edge", label_style={"backgroundColor": "#ffffff"})

@@ -5,6 +5,7 @@ import xml.etree.ElementTree as ET
 from ..core.xml_item import XmlItem
 from .edge import Edge
 from .group import Group
+from .resource import Resource
 
 LOG = logging.getLogger(__name__)
 
@@ -19,6 +20,9 @@ class Graph(XmlItem):
         self.nodes = {}
         self.edges = {}
         self.groups = {}
+        # Used to store svg files for instance
+        self.resources = {}
+        self._ressources_hash = {}  # Corresponding hash for a given ressource (to avoid storing it twice)
 
         # Yed only support directed graph, so masking this value
         self.directed = "directed"
@@ -50,6 +54,11 @@ class Graph(XmlItem):
         node_key.set("attr.name", "url")
         node_key.set("attr.type", "string")
 
+        # Definition: resource for graphml
+        node_key = ET.SubElement(graphml, "key", id="resource_node")
+        node_key.set("for", "graphml")
+        node_key.set("yfiles.type", "resources")
+
         # Definition: description for Node
         node_key = ET.SubElement(graphml, "key", id="description_node")
         node_key.set("for", "node")
@@ -72,6 +81,8 @@ class Graph(XmlItem):
         edge_key.set("for", "edge")
         edge_key.set("yfiles.type", "edgegraphics")
 
+
+
         graph = ET.SubElement(graphml, "graph", edgedefault=self.directed,
                               id=self.id)
 
@@ -84,7 +95,31 @@ class Graph(XmlItem):
         for edge in self.edges.values():
             graph.append(edge.to_xml())
 
+        data_key = ET.SubElement(graphml, "data", key="resource_node")
+        resources_key = ET.SubElement(data_key, 'y:Resources')
+
+        for resource in self.resources.values():
+            t = resource.to_xml()
+            resources_key.append(t)
+
         self.graphml = graphml
+
+
+    def add_resource(self, resource):
+        r_hash = hash(resource)
+
+        # Check if this ressource is already stored and return corresponding index if so
+        for (idx, res) in self.resources.items():
+            if r_hash == res.hash:
+                return idx
+
+        # New ressource
+        r_obj = Resource(resource, parent=self)
+
+        self.resources[r_obj.id] = r_obj
+        self.existing_entities[r_obj.id] = r_obj
+
+        return r_obj.id
 
     def write_graph(self, filename):
         """

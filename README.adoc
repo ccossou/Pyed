@@ -220,6 +220,29 @@ l = g.add_node(pyed.GenericNode, "GenericNode", description="line1\nline2\nline3
 | desc_style | dict | dict of all values passed to the description label (see <<label_parameters>>)
 |===
 
+[[svg_node]]
+==== SvgNode
+.Example of SvgNode. Script used to make the plot is examples/plot_indiv_element.py.
+image::svg_node.svg[align="center"]
+
+[source]
+----
+import pyed
+
+g = pyed.Graph()
+
+n = g.add_node(pyed.SvgNode, "SvgNode", svg_filename="yed_regular_hexagon.svg")
+----
+
+.GenericNode parameters (see <<node_parameters>> for common parameters also applicable):
+[frame="all",options="header"]
+|===
+| Parameter Name | Possible values | Description
+| svg_filename | str | Absolute or relative path to an SVG file that will be used as node representation.
+|===
+
+In Yed, you have an option menu:SVG[Apply SVG size], to make sure the ratio if kept, but this is a one time only option. If you resize, that option is deactivated because you can only keep the original SVG size, and not the original ratio. You can, however, resize while pressing btn:[Shift]. Another option is to set *width* and *height* when defining the *SvgNode*.
+
 === Edge
 .Example of Edge. Script used to make the plot is examples/plot_indiv_element.py.
 image::edge.svg[align="center"]
