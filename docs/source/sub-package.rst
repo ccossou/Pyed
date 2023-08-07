@@ -406,7 +406,7 @@ Example on how to apply those parameter in an actual node:
 
 Label placement for every element but Edge)
 ~~~~~~~~~~~~~~~~~~~~~~
-Every element but Edge mean: Group, ShapeNode, UmlNode, GenericNode and TableNode.
+Every element but Edge mean: Group, ShapeNode, UmlNode, GenericNode, SvgNode and TableNode.
 
 These parameters have an effect on how the Label will be placed with respect to the Node. To that extent, the Label parameter autoSizePolicy do matter (at least for all object except Edge, see :ref:`EdgeLabel`)
 
