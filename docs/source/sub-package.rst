@@ -358,7 +358,8 @@ NOTE: All these parameters only have an effect inside the Label, and have no eff
 
    Label ``autoSizePolicy`` values. Script used to make the plot is *examples/plot_label_size.py*.
 
-.Example on how to apply those parameter in an actual node:
+Example on how to apply those parameter in an actual node:
+
 ..  code-block:: python
 
     g.add_node(pyed.ShapeNode, "foo", title_style=dict(fontFamily="Dialog",
