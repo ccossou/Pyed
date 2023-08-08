@@ -10,10 +10,10 @@ def test_edges():
     nodec = g.add_node(pel.ShapeNode, 'c')
 
     edge1 = g.add_edge(nodea, nodeb)
-    assert pel.Edge._class_counter == 1
+    old_count = pel.Edge._class_counter
 
     edge2 = g.add_edge(nodea, nodec)
-    assert pel.Edge._class_counter == 2
+    assert pel.Edge._class_counter == old_count + 1
 
     e1 = g.edges[edge1.id]
     e2 = g.edges[edge2.id]

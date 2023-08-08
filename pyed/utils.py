@@ -176,12 +176,10 @@ def update_dict(d, u):
     return d
 
 
-def init_log(log="pyed.log", stdout_loglevel="INFO", file_loglevel="DEBUG", extra_config=None):
+def init_log(level="INFO", extra_config=None):
     """
 
-    :param str log: filename where to store logs. By default "pipeline.log"
-    :param str stdout_loglevel: log level for standard output (ERROR, WARNING, INFO, DEBUG)
-    :param str file_loglevel: log level for log file (ERROR, WARNING, INFO, DEBUG)
+    :param str level: log level for standard output (ERROR, WARNING, INFO, DEBUG)
     :param dict extra_config: [optional] Set of extra properties to be added to the dict_config for logging
     :return:
     :rtype:
@@ -198,11 +196,6 @@ def init_log(log="pyed.log", stdout_loglevel="INFO", file_loglevel="DEBUG", extr
                         "format": "%(asctime)s %(levelname)-8s %(message)s",
                         "datefmt": "%H:%M:%S"
                     },
-                "form02":
-                    {
-                        "format": "%(asctime)s [%(processName)s/%(name)s] %(levelname)s - %(message)s",
-                        "datefmt": "%H:%M:%S"
-                    },
             },
         "handlers":
             {
@@ -210,16 +203,8 @@ def init_log(log="pyed.log", stdout_loglevel="INFO", file_loglevel="DEBUG", extr
                     {
                         "class": "logging.StreamHandler",
                         "formatter": "form01",
-                        "level": stdout_loglevel,
+                        "level": level,
                         "stream": "ext://sys.stdout",
-                    },
-                "file":
-                    {
-                        "class": "logging.FileHandler",
-                        "formatter": "form02",
-                        "level": file_loglevel,
-                        "filename": log,
-                        "mode": "w",  # Overwrite file if it exists
                     },
             },
         "loggers":
@@ -227,7 +212,7 @@ def init_log(log="pyed.log", stdout_loglevel="INFO", file_loglevel="DEBUG", extr
                 "":
                     {
                         "level": "NOTSET",
-                        "handlers": ["console", "file"],
+                        "handlers": ["console"],
                     },
             },
         "disable_existing_loggers": False,

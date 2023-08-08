@@ -33,4 +33,5 @@ Contents
 .. toctree::
 
    source/intro
+   source/parser
    source/sub-package
