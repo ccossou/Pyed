@@ -1,6 +1,49 @@
 [build-system]
-requires = [
-    "setuptools>=42",
-    "wheel",
-]
+requires = ["setuptools>=65", "setuptools_scm[toml]>=6.2"]
 build-backend = "setuptools.build_meta"
+
+[project]
+name = "pyed"
+dynamic = ["version"]
+description = "Python Yed Simple Graph generator"
+license = {file = "LICENSE.txt"}
+requires-python = ">=3.9"
+readme = "README.md"
+authors = [
+    {name = "Christophe Cossou", email = "ccossou@gmail.com"},
+]
+dependencies = [
+    "pytest",
+    "setuptools",
+    "pyyaml",
+]
+classifiers = [
+    'Programming Language :: Python',
+    'Programming Language :: Python :: 3',
+    'Programming Language :: Python :: 3.9',
+    'Programming Language :: Python :: 3.10',
+    'Programming Language :: Python :: 3.11',
+    'Programming Language :: Python :: 3.12',
+    'Programming Language :: Python :: 3 :: Only',
+    'Operating System :: Microsoft :: Windows',
+    'Operating System :: Unix',
+    'Operating System :: MacOS',
+]
+
+[tool.setuptools]
+# ...
+# By default, include-package-data is true in pyproject.toml, so you do
+# NOT have to specify this line.
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.dynamic]
+version = {attr = "pyed.version.__version__"}
+
+[project.urls]
+homepage = "https://github.com/ccossou/Pyed"
+documentation = "https://pyed.readthedocs.io"
+source = "https://github.com/ccossou/Pyed"
+tracker = "https://github.com/ccossou/Pyed/issues"
