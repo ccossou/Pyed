@@ -98,6 +98,24 @@ class Group(XmlItem):
         self.parent_graph.existing_entities[node.id] = node
         return node
 
+    def link_node(self, node):
+        """
+        Link existing node to this group instead of its previous group
+
+        This node must belong to the same graph
+
+        :param pyed.Node node: Node object
+        """
+
+        if self.parent_graph != node.parent_graph:
+            raise ValueError("Can't link node from different graph")
+
+        del node.parent.nodes[node.id]
+
+        node.parent = self
+
+        self.nodes[node.id] = node
+
     def add_group(self, name, **kwargs):
         """
         Add group to current object.

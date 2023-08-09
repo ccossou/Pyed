@@ -74,6 +74,25 @@ def test_group_nodes():
     utils.assert_dict_subset(label._params, ref_dict)
 
 
+
+def test_group_link_nodes():
+    """
+    Test group.link_node
+    """
+    g = pyed.Graph()
+
+    n1 = g.add_node(pel.ShapeNode, 'foo')
+
+    grp1 = g.add_group("MY_Group", shape="rectangle3d")
+
+    grp1.link_node(n1)
+
+    assert n1.parent.id == grp1.id
+    assert n1.parent_graph.id == g.id
+    assert n1.id in grp1.nodes
+    assert n1.id not in g.nodes
+
+
 def test_group_edges():
     """
     Test group.add_edge
