@@ -42,7 +42,7 @@ class Label:
         :param kwargs: Extra parameter can be passed as long as they are valid xml parameters for the current tag label.
         """
 
-        self._text = text
+        self._text = str(text)
 
         utils.check_value("tag", tag, self.allowed_tags)
         self.tag = tag

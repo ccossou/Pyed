@@ -39,15 +39,16 @@ class Node(XmlItem, metaclass=ABCMeta):
         """
         super().__init__(**kwargs)
 
+        self.name = str(name)
+
         self.list_of_labels = []  # initialize list of labels
 
         # Use default dict as base, and overwrite by custom parameter if conflict
         self.title_style = self.default_title_style.copy()
         self.title_style.update(title_style)
 
-        self.add_label(name, **self.title_style)
+        self.add_label(self.name, **self.title_style)
 
-        self.name = name
 
         # shape fill
         self.background = background

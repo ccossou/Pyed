@@ -43,7 +43,7 @@ class Group(XmlItem):
 
         super().__init__(**kwargs)
 
-        self.name = name
+        self.name = str(name)
 
         self.nodes = {}
         self.groups = {}
