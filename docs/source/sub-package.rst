@@ -11,6 +11,8 @@ Nodes
 Global parameters for all xxxNode
 ~~~~~~~~~~~~~~~~~~~~~~
 
+Some items, such as the node title, are Label object, and to configure them, you need to pass the arguments to the corresponding label. For instance, any parameters to customize a node title must be passed to the title_style parameter (expecting a dictionnary).
+
 .. _node_parameters:
 .. list-table:: Generic parameters applicable for all xxxNode:
    :header-rows: 1
