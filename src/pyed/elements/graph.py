@@ -156,13 +156,13 @@ class Graph(XmlItem):
         :return: child node created
         :rtype: instance of type NodeClass
         """
-        node = NodeClass(node_name, parent=self, **kwargs)
+        node = NodeClass(node_name, *args, parent=self, **kwargs)
 
         self.nodes[node.id] = node
         self.existing_entities[node.id] = node
         return node
 
-    def add_edge(self, node1, node2, **kwargs):
+    def add_edge(self, node1, node2, *args, **kwargs):
         """
         Add an edge between both input nodes
 
@@ -174,12 +174,12 @@ class Graph(XmlItem):
         :rtype: Edge
         """
 
-        edge = Edge(node1, node2, parent=self, **kwargs)
+        edge = Edge(node1, node2, *args, parent=self, **kwargs)
         self.edges[edge.id] = edge
         self.existing_entities[edge.id] = edge
         return edge
 
-    def add_group(self, name, **kwargs):
+    def add_group(self, name, *args, **kwargs):
         """
         Add group to current object.
 
@@ -189,7 +189,7 @@ class Graph(XmlItem):
         :return: child group created
         :rtype: Group
         """
-        group = Group(name, parent=self, **kwargs)
+        group = Group(name, *args, parent=self, **kwargs)
         self.groups[group.id] = group
         self.existing_entities[group.id] = group
         return group
