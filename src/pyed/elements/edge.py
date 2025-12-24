@@ -11,7 +11,7 @@ LOG = logging.getLogger(__name__)
 
 class Edge(XmlItem):
 
-    default_clabel_style = dict(alignment="center", backgroundColor=None, borderColor="",
+    default_clabel_style = dict(alignment="center", backgroundColor="#ffffff", borderColor="",
                                 modelName="centered", modelPosition="center", preferred_placement=None)
     default_slabel_style = dict(alignment="center", backgroundColor=None, borderColor="",
                                 modelName="six_pos", modelPosition="shead",
